@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">beatyourneat</string>
+    <string name="loginUser">User</string>
+    <string name="loginPassword">Password</string>
+    <string name="buttonLogin">Login</string>
+    <string name="buttonRegister">Register</string>
+    <string name="registerUser">User</string>
+    <string name="registerPassword">Password</string>
+    <string name="registerCancel">Cancel</string>
+</resources>
