@@ -39,17 +39,19 @@ public class LoginActivity extends AppCompatActivity {
                 String username = et_loginUser.getText().toString();
                 String password = et_loginPassword.getText().toString();
 
-                if(userTable.checkUserExists(username)){
-                    user = userTable.getUser(username);
-                    if(password.equals(user.getPassword())){
-                        // Mainpage
+                if (username.isEmpty() || password.isEmpty()) {
+                    Toast.makeText(LoginActivity.this, "login with your username and password", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (userTable.checkUserExists(username)) {
+                        user = userTable.getUser(username);
+                        if (password.equals(user.getPassword())) {
+                            // Mainpage
+                        } else {
+                            Toast.makeText(LoginActivity.this, "wrong password for " + username, Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(LoginActivity.this, username + " does not exist", Toast.LENGTH_SHORT).show();
                     }
-                    else{
-                        Toast.makeText(LoginActivity.this, "wrong password for " + username, Toast.LENGTH_SHORT).show();
-                    }
-                }
-                else{
-                    Toast.makeText(LoginActivity.this, username + " does not exist", Toast.LENGTH_SHORT).show();
                 }
             }
         });

@@ -39,24 +39,26 @@ public class RegisterActivity extends AppCompatActivity {
                 String password = et_registerPassword.getText().toString();
                 String password2 = et_registerPasswordConfirm.getText().toString();
 
-                if(!(userTable.checkUserExists(username))){
-                    if(password.equals(password2)){
-                        //ProfilPage
-                        userTable.addUser(new UserModel(username, password));
-                        Toast.makeText(RegisterActivity.this, "Welcome! your registration was successful", Toast.LENGTH_SHORT).show();
-                        try {
-                            Thread.sleep(3000);
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
+                if (username.isEmpty() || password.isEmpty() || password2.isEmpty()) {
+                    Toast.makeText(RegisterActivity.this, "register with username, password and confirm your password", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (!(userTable.checkUserExists(username))) {
+                        if (password.equals(password2)) {
+                            //ProfilPage
+                            userTable.addUser(new UserModel(username, password));
+                            Toast.makeText(RegisterActivity.this, "welcome! Your registration was successful", Toast.LENGTH_SHORT).show();
+                            try {
+                                Thread.sleep(2000);
+                            } catch (InterruptedException e) {
+                                throw new RuntimeException(e);
+                            }
+                            finish();
+                        } else {
+                            Toast.makeText(RegisterActivity.this, "passwords must be equal", Toast.LENGTH_SHORT).show();
                         }
-                        finish();
+                    } else {
+                        Toast.makeText(RegisterActivity.this, username + " already exists", Toast.LENGTH_SHORT).show();
                     }
-                    else{
-                        Toast.makeText(RegisterActivity.this, "passwords must be equal", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                else{
-                    Toast.makeText(RegisterActivity.this, username + " already exists", Toast.LENGTH_SHORT).show();
                 }
             }
         });
