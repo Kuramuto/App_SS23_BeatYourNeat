@@ -2,6 +2,7 @@ package com.justingruenberg.beatyourneat;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -44,7 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
                 } else {
                     if (!(userTable.checkUserExists(username))) {
                         if (password.equals(password2)) {
-                            //ProfilPage
+                            startActivity(new Intent(RegisterActivity.this, ProfileActivity.class));
                             userTable.addUser(new UserModel(username, password));
                             Toast.makeText(RegisterActivity.this, "welcome! Your registration was successful", Toast.LENGTH_SHORT).show();
                             try {
