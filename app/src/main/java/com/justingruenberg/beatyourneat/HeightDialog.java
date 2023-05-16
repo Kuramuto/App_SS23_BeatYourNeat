@@ -32,16 +32,17 @@ public class HeightDialog extends AppCompatDialogFragment {
         builder.setView(view);
         builder.setTitle("Select your height in cm");
 
+
         heightPicker = view.findViewById(R.id.np_heightDialog);
         heightPicker.setMinValue(50);
         heightPicker.setMaxValue(250);
         heightPicker.setValue(175);
+        height = heightPicker.getValue();
 
         heightPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker numberPicker, int i, int i1) {
                 height = i1;
-                heightDialogInterface.applyValue(height);
             }
         });
 
@@ -54,6 +55,8 @@ public class HeightDialog extends AppCompatDialogFragment {
         builder.setPositiveButton("Apply", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+
+                heightDialogInterface.applyValue(height);
 
             }
         });
