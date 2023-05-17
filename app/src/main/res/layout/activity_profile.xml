@@ -65,16 +65,16 @@
 
     <EditText
         android:id="@+id/et_profileHeight"
-        android:layout_width="wrap_content"
+        android:layout_width="115dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:focusable="false"
+        android:hint="@string/ProfileSelectHeight"
         android:inputType="none"
-        android:text="@string/ProfileSelectHeight"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.199"
+        app:layout_constraintHorizontal_bias="0.135"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_profileHeight"
         app:layout_constraintVertical_bias="0.0" />
@@ -95,15 +95,16 @@
 
     <EditText
         android:id="@+id/et_profileAge"
-        android:layout_width="wrap_content"
+        android:layout_width="90dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/profileSelectAge"
+        android:focusable="false"
+        android:hint="@string/profileSelectAge"
+        android:inputType="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.199"
+        app:layout_constraintHorizontal_bias="0.124"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_profileAge"
         app:layout_constraintVertical_bias="0.0" />
@@ -124,15 +125,16 @@
 
     <EditText
         android:id="@+id/et_profileWeight"
-        android:layout_width="wrap_content"
+        android:layout_width="115dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/profileSelectWeight"
+        android:focusable="false"
+        android:hint="@string/profileSelectWeight"
+        android:inputType="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.199"
+        app:layout_constraintHorizontal_bias="0.135"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_profileWeight"
         app:layout_constraintVertical_bias="0.0" />

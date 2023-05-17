@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.ToggleButton;
 
-public class ProfileActivity extends AppCompatActivity implements HeightDialog.HeightDialogInterface {
+public class ProfileActivity extends AppCompatActivity implements HeightDialog.HeightDialogInterface, AgeDialog.AgeDialogInterface {
 
     ToggleButton tb_profileFemale;
     ToggleButton tb_profileMale;
@@ -25,6 +25,7 @@ public class ProfileActivity extends AppCompatActivity implements HeightDialog.H
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        setTitle("Profile");
 
         tb_profileFemale = findViewById(R.id.tb_profileFemale);
         tb_profileMale = findViewById(R.id.tb_profileMale);
@@ -55,20 +56,37 @@ public class ProfileActivity extends AppCompatActivity implements HeightDialog.H
         et_profileHeight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openDialog();
+                openHeightDialog();
+            }
+        });
+
+        et_profileAge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openAgeDialog();
             }
         });
 
 
     }
 
-    public void openDialog(){
+    public void openHeightDialog(){
         HeightDialog heightDialog = new HeightDialog();
         heightDialog.show(getSupportFragmentManager(), "HeightDialog");
     }
 
+    public void openAgeDialog(){
+        AgeDialog ageDialog = new AgeDialog();
+        ageDialog.show(getSupportFragmentManager(), "AgeDialog");
+    }
+
     @Override
-    public void applyValue(int height) {
-        et_profileHeight.setText(String.valueOf(height));
+    public void onApplyHeight(int height) {
+        et_profileHeight.setText(String.valueOf(height) + " cm");
+    }
+
+    @Override
+    public void onApplyAge(int age) {
+        et_profileAge.setText(String.valueOf(age));
     }
 }

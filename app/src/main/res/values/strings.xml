@@ -15,6 +15,6 @@
     <string name="profileAge">Your age</string>
     <string name="profileSelectAge">Select age</string>
     <string name="profileWeight">Your weight</string>
-    <string name="profileSelectWeight">Select Weight</string>
+    <string name="profileSelectWeight">Select weight</string>
     <string name="buttonNext">Next</string>
 </resources>

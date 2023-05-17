@@ -9,37 +9,37 @@ import android.view.View;
 import android.widget.NumberPicker;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-public class HeightDialog extends AppCompatDialogFragment {
+public class AgeDialog extends AppCompatDialogFragment {
 
-    NumberPicker heightPicker;
-    HeightDialogInterface heightDialogInterface;
-    int height;
-
+    NumberPicker agePicker;
+    AgeDialogInterface ageDialogInterface;
+    int age;
 
     @NonNull
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         LayoutInflater layoutInflater = getActivity().getLayoutInflater();
-        View view = layoutInflater.inflate(R.layout.layout_heightdialog, null);
+        View view = layoutInflater.inflate(R.layout.layout_agedialog, null);
 
         builder.setView(view);
-        builder.setTitle("In cm");
+        builder.setTitle("Your age");
 
-        heightPicker = view.findViewById(R.id.np_heightDialog);
-        heightPicker.setMinValue(50);
-        heightPicker.setMaxValue(250);
-        heightPicker.setValue(175);
-        height = heightPicker.getValue();
+        agePicker = view.findViewById(R.id.np_ageDialog);
+        agePicker.setMinValue(10);
+        agePicker.setMaxValue(110);
+        agePicker.setValue(18);
+        age = agePicker.getValue();
 
-        heightPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+        agePicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker numberPicker, int i, int i1) {
-                height = i1;
+                age = i1;
             }
         });
 
@@ -49,26 +49,24 @@ public class HeightDialog extends AppCompatDialogFragment {
 
             }
         });
+
         builder.setPositiveButton("Apply", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
-                heightDialogInterface.onApplyHeight(height);
-
+                ageDialogInterface.onApplyAge(age);
             }
         });
 
-        return  builder.create();
-
+        return builder.create();
     }
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        heightDialogInterface = (HeightDialogInterface) context;
+        ageDialogInterface = (AgeDialogInterface) context;
     }
 
-    public interface HeightDialogInterface{
-        void onApplyHeight(int height);
+    public interface AgeDialogInterface{
+        void onApplyAge(int age);
     }
 }
