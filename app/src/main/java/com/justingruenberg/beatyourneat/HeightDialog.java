@@ -38,8 +38,8 @@ public class HeightDialog extends AppCompatDialogFragment {
 
         heightPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
-            public void onValueChange(NumberPicker numberPicker, int i, int i1) {
-                height = i1;
+            public void onValueChange(NumberPicker numberPicker, int oldValue, int newValue) {
+                height = newValue;
             }
         });
 

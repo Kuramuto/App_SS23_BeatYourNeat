@@ -2,24 +2,27 @@ package com.justingruenberg.beatyourneat;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.widget.NumberPicker;
+import android.widget.DatePicker;
 import android.widget.ToggleButton;
 
-public class ProfileActivity extends AppCompatActivity implements HeightDialog.HeightDialogInterface, AgeDialog.AgeDialogInterface {
+import java.util.Calendar;
+
+public class ProfileActivity extends AppCompatActivity implements HeightDialog.HeightDialogInterface, WeightDialog.WeightDialogInterface {
 
     ToggleButton tb_profileFemale;
     ToggleButton tb_profileMale;
-    EditText et_profileHeight;
-    EditText et_profileAge;
-    EditText et_profileWeight;
+    Button bt_profileHeight;
+    Button bt_profileAge;
+    Button bt_profileWeight;
+    DatePickerDialog datePickerDialog;
     Button bt_profileNext;
     String chosenGender;
-    NumberPicker heightPicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +32,12 @@ public class ProfileActivity extends AppCompatActivity implements HeightDialog.H
 
         tb_profileFemale = findViewById(R.id.tb_profileFemale);
         tb_profileMale = findViewById(R.id.tb_profileMale);
-        et_profileHeight = findViewById(R.id.et_profileHeight);
-        et_profileAge = findViewById(R.id.et_profileAge);
-        et_profileWeight = findViewById(R.id.et_profileWeight);
+        bt_profileHeight = findViewById(R.id.bt_profileHeight);
+        bt_profileAge = findViewById(R.id.bt_profileAge);
+        bt_profileWeight = findViewById(R.id.bt_profileWeight);
         bt_profileNext = findViewById(R.id.bt_profileNext);
 
+        initDatePicker();
         tb_profileFemale.setChecked(true);
         chosenGender = "female";
 
@@ -53,21 +57,82 @@ public class ProfileActivity extends AppCompatActivity implements HeightDialog.H
             }
         });
 
-        et_profileHeight.setOnClickListener(new View.OnClickListener() {
+        bt_profileHeight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openHeightDialog();
             }
         });
 
-        et_profileAge.setOnClickListener(new View.OnClickListener() {
+        bt_profileAge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openAgeDialog();
+                openDatePickerDialog();
+            }
+        });
+
+        bt_profileWeight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openWeightDialog();
             }
         });
 
 
+    }
+
+    private void initDatePicker() {
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month+1;
+                String date = dateToString(year, month, day);
+                bt_profileAge.setText(date);
+            }
+        };
+
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+
+        datePickerDialog = new DatePickerDialog(this, AlertDialog.THEME_HOLO_LIGHT , dateSetListener, year, month, day);
+        datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+    }
+
+    private String dateToString(int year, int month, int day) {
+        return getMonthFormat(month) + " " + day + " " + year;
+    }
+
+    private String getMonthFormat(int month) {
+
+        switch(month){
+            case 2:
+                return "FEB";
+            case 3:
+                return "MAR";
+            case 4:
+                return "APR";
+            case 5:
+                return "MAY";
+            case 6:
+                return "JUN";
+            case 7:
+                return "JUL";
+            case 8:
+                return "AUG";
+            case 9:
+                return "SEP";
+            case 10:
+                return "OCT";
+            case 11:
+                return "NOV";
+            case 12:
+                return "DEC";
+            default:
+                return "JAN";
+        }
     }
 
     public void openHeightDialog(){
@@ -75,18 +140,23 @@ public class ProfileActivity extends AppCompatActivity implements HeightDialog.H
         heightDialog.show(getSupportFragmentManager(), "HeightDialog");
     }
 
-    public void openAgeDialog(){
-        AgeDialog ageDialog = new AgeDialog();
-        ageDialog.show(getSupportFragmentManager(), "AgeDialog");
-    }
-
     @Override
     public void onApplyHeight(int height) {
-        et_profileHeight.setText(String.valueOf(height) + " cm");
+        bt_profileHeight.setText(height + " cm");
     }
 
+    public void openDatePickerDialog(){
+        datePickerDialog.show();
+    }
+
+    public void openWeightDialog(){
+        WeightDialog weightDialog = new WeightDialog();
+        weightDialog.show(getSupportFragmentManager(), "WeightDialog");
+    }
+
+
     @Override
-    public void onApplyAge(int age) {
-        et_profileAge.setText(String.valueOf(age));
+    public void onApplyWeight(int kilos, int grams) {
+        bt_profileWeight.setText(kilos + "." + grams + " kg");
     }
 }
