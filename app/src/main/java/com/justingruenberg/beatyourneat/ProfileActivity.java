@@ -6,12 +6,14 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
+import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import java.util.Calendar;
@@ -77,7 +79,7 @@ public class ProfileActivity extends AppCompatActivity implements HeightDialog.H
         bt_profileWeight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openWeightDialog();
+                openWeightDialog2();
             }
         });
 
@@ -186,7 +188,7 @@ public class ProfileActivity extends AppCompatActivity implements HeightDialog.H
         builder.setPositiveButton("Apply", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 // logic for continue button
-                bt_profileHeight.setText(String.valueOf(height[0]) + " cm");
+                bt_profileHeight.setText(height[0] + " cm");
             }
         });
 
@@ -197,5 +199,63 @@ public class ProfileActivity extends AppCompatActivity implements HeightDialog.H
         });
         builder.show();
 
+    }
+    public void openWeightDialog2(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, android.R.style.Theme_DeviceDefault_Light_Dialog_Alert);
+        builder.setTitle("in kg");
+        LinearLayout linearLayout = new LinearLayout(this);
+        linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+        linearLayout.setGravity(Gravity.CENTER);
+        final NumberPicker kilos = new NumberPicker(this);
+        final TextView dot = new TextView(this);
+        final NumberPicker grams = new NumberPicker(this);
+        final int[] kilo = new int[1];
+        final int[] gram = new int[1];
+
+        kilos.setMinValue(30);
+        kilos.setMaxValue(300);
+        kilos.setValue(80);
+        kilo[0] = kilos.getValue();
+        kilos.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker numberPicker, int oldValue, int newValue) {
+                kilo[0] = newValue;
+            }
+        });
+
+        dot.setText(".");
+        dot.setTextSize(30);
+
+        grams.setMinValue(0);
+        grams.setMaxValue(9);
+        grams.setValue(0);
+        gram[0] = grams.getValue();
+        grams.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker numberPicker, int oldValue, int newValue) {
+                gram[0] = newValue;
+            }
+        });
+
+        linearLayout.addView(kilos);
+        linearLayout.addView(dot);
+        linearLayout.addView(grams);
+        builder.setView(linearLayout);
+
+        builder.setPositiveButton("Apply", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                bt_profileWeight.setText(kilo[0] + "." + gram[0] + " kg");
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int i) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
     }
 }
