@@ -4,11 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
+import android.widget.LinearLayout;
+import android.widget.NumberPicker;
 import android.widget.ToggleButton;
 
 import java.util.Calendar;
@@ -60,7 +63,7 @@ public class ProfileActivity extends AppCompatActivity implements HeightDialog.H
         bt_profileHeight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openHeightDialog();
+                openHeightDialog2();
             }
         });
 
@@ -158,5 +161,41 @@ public class ProfileActivity extends AppCompatActivity implements HeightDialog.H
     @Override
     public void onApplyWeight(int kilos, int grams) {
         bt_profileWeight.setText(kilos + "." + grams + " kg");
+    }
+
+    public void openHeightDialog2(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, android.R.style.Theme_DeviceDefault_Light_Dialog_Alert);
+        final NumberPicker np = new NumberPicker(this);
+        final int[] height = new int[1];
+        np.setMinValue(50);
+        np.setMaxValue(250);
+        np.setValue(175);
+        height[0] = np.getValue();
+        np.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker numberPicker, int oldValue, int newValue) {
+                height[0] = newValue;
+            }
+        });
+        LinearLayout linearLayout = new LinearLayout(this);
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+        linearLayout.addView(np);
+        builder.setView(linearLayout);
+        builder.setTitle("in cm");
+
+        builder.setPositiveButton("Apply", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                // logic for continue button
+                bt_profileHeight.setText(String.valueOf(height[0]) + " cm");
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                dialog.cancel(); // logic for cancel button
+            }
+        });
+        builder.show();
+
     }
 }
