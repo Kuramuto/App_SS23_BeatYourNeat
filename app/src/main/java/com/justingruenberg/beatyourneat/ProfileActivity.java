@@ -26,6 +26,7 @@ public class ProfileActivity extends AppCompatActivity implements HeightDialog.H
     private Button bt_profileAge;
     private Button bt_profileWeight;
     private DatePickerDialog datePickerDialog;
+    private Calendar calendar;
     private Button bt_profileNext;
     private String chosenGender;
 
@@ -42,7 +43,6 @@ public class ProfileActivity extends AppCompatActivity implements HeightDialog.H
         bt_profileWeight = findViewById(R.id.bt_profileWeight);
         bt_profileNext = findViewById(R.id.bt_profileNext);
 
-        initDatePicker();
         tb_profileFemale.setChecked(true);
         chosenGender = "female";
 
@@ -84,26 +84,6 @@ public class ProfileActivity extends AppCompatActivity implements HeightDialog.H
         });
 
 
-    }
-
-    private void initDatePicker() {
-        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month = month+1;
-                String date = dateToString(year, month, day);
-                bt_profileAge.setText(date);
-            }
-        };
-
-        Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-
-        datePickerDialog = new DatePickerDialog(this, AlertDialog.THEME_HOLO_LIGHT , dateSetListener, year, month, day);
-        datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
     }
 
     private String dateToString(int year, int month, int day) {
@@ -161,6 +141,22 @@ public class ProfileActivity extends AppCompatActivity implements HeightDialog.H
     }
 
     public void openDatePickerDialog(){
+
+        calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        datePickerDialog = new DatePickerDialog(this, android.R.style.Theme_Holo_Light_Panel, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month+1;
+                String date = dateToString(year, month, day);
+                bt_profileAge.setText(date);
+            }
+        }, year, month, day);
+        datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+        datePickerDialog.setButton(DatePickerDialog.BUTTON_POSITIVE, "Apply", datePickerDialog);
+        datePickerDialog.setButton(DatePickerDialog.BUTTON_NEGATIVE, "Cancel", datePickerDialog);
         datePickerDialog.show();
     }
 }

@@ -51,7 +51,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 if (userTable.userExists(username)) {
                     user = userTable.get(username);
                     if (password.equals(user.getPassword())) {
-                        Toast.makeText(this, "logged in", Toast.LENGTH_SHORT).show();
+                        if(!(user.isInitialized())){
+                            startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
+                        }
                         // Mainpage
                     } else {
                         Toast.makeText(LoginActivity.this, "wrong password for " + username, Toast.LENGTH_SHORT).show();
