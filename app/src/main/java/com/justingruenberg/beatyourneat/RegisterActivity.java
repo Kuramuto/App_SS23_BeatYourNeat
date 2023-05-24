@@ -49,9 +49,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             if (username.isEmpty() || password.isEmpty() || password2.isEmpty()) {
                 Toast.makeText(RegisterActivity.this, "register with username, password and confirm your password", Toast.LENGTH_SHORT).show();
             } else {
-                if (!(userTable.checkUserExists(username))) {
+                if (!(userTable.userExists(username))) {
                     if (password.equals(password2)) {
-                        userTable.addUser(new UserModel(username, password));
+                        userTable.add(new UserModel(username, password, false));
                         startActivity(new Intent(RegisterActivity.this, ProfileActivity.class));
                     } else {
                         Toast.makeText(RegisterActivity.this, "passwords must be equal", Toast.LENGTH_SHORT).show();

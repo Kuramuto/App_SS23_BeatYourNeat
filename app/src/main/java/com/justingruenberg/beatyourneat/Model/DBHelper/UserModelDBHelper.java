@@ -12,7 +12,7 @@ import com.justingruenberg.beatyourneat.Model.UserModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserModelDBHelper extends SQLiteOpenHelper {
+public class UserModelDBHelper extends SQLiteOpenHelper implements UserModelDAO {
 
     private static final String DATABASE_NAME = "userTable.db";
     private static final int DATABASE_VERSION = 1;
@@ -20,8 +20,7 @@ public class UserModelDBHelper extends SQLiteOpenHelper {
     private static final String USER_TABLE = "user_table";
     private static final String COLUMN_USERNAME = "username";
     private static final String COLUMN_PASSWORD = "password";
-
-
+    private static final String COLUMN_INITIALIZED = "initialized";
 
 
     public UserModelDBHelper(Context context) {
@@ -33,7 +32,8 @@ public class UserModelDBHelper extends SQLiteOpenHelper {
 
         String createTableStatement = "CREATE TABLE " + USER_TABLE + " (" +
                 COLUMN_USERNAME + " TEXT PRIMARY KEY, " +
-                COLUMN_PASSWORD + " TEXT" +
+                COLUMN_PASSWORD + " TEXT, " +
+                COLUMN_INITIALIZED + " INTEGER" +
                 ")";
         sqLiteDatabase.execSQL(createTableStatement);
     }
@@ -44,72 +44,89 @@ public class UserModelDBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(dropTableStatement);
     }
 
-    public boolean addUser(UserModel user) {
-        SQLiteDatabase db = getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_USERNAME, user.getUserName());
-        values.put(COLUMN_PASSWORD, user.getPassword());
-        long result = db.insert(USER_TABLE, null, values);
-        return (result != -1);
+
+    private boolean getIntAsBoolean(int value) {
+        return value != 0;
     }
 
-    public UserModel getUser(String username) {
+    @Override
+    public UserModel get(String userName) {
         SQLiteDatabase db = getReadableDatabase();
-        String[] columns = {COLUMN_USERNAME, COLUMN_PASSWORD};
-        String selection = COLUMN_USERNAME + " = ?";
-        String[] selectionArgs = {username};
-        Cursor cursor = db.query(USER_TABLE, columns, selection, selectionArgs, null, null, null);
+        String[] columns = {COLUMN_USERNAME, COLUMN_PASSWORD, COLUMN_INITIALIZED};
+        String whereClause = COLUMN_USERNAME + " = ?";
+        String[] whereArgs = {userName};
+        Cursor cursor = db.query(USER_TABLE, columns, whereClause, whereArgs, null, null, null);
         UserModel user = null;
-        if (cursor.moveToFirst()) {
+        if(cursor.moveToFirst()){
             @SuppressLint("Range") String password = cursor.getString(cursor.getColumnIndex(COLUMN_PASSWORD));
-            user = new UserModel(username, password);
+            @SuppressLint("Range") int initializedInt = cursor.getInt(cursor.getColumnIndex(COLUMN_INITIALIZED));
+            boolean initialized = getIntAsBoolean(initializedInt);
+            user = new UserModel(userName, password, initialized);
         }
         cursor.close();
+        db.close();
         return user;
     }
 
-    public List<UserModel> getAllUsers() {
+    @Override
+    public List<UserModel> getAll() {
         SQLiteDatabase db = getReadableDatabase();
-        String[] columns = {COLUMN_USERNAME, COLUMN_PASSWORD};
+        List<UserModel> userList = new ArrayList<>();
+        String[] columns = {COLUMN_USERNAME, COLUMN_PASSWORD, COLUMN_INITIALIZED};
         Cursor cursor = db.query(USER_TABLE, columns, null, null, null, null, null);
-        List<UserModel> users = new ArrayList<>();
-        while (cursor.moveToNext()) {
+        while (cursor.moveToNext()){
             @SuppressLint("Range") String username = cursor.getString(cursor.getColumnIndex(COLUMN_USERNAME));
             @SuppressLint("Range") String password = cursor.getString(cursor.getColumnIndex(COLUMN_PASSWORD));
-            UserModel user = new UserModel(username, password);
-            users.add(user);
+            @SuppressLint("Range") int initializedInt = cursor.getInt(cursor.getColumnIndex(COLUMN_INITIALIZED));
+            userList.add(new UserModel(username, password, getIntAsBoolean(initializedInt)));
         }
         cursor.close();
-        return users;
+        return userList;
     }
 
-    public boolean updateUser(UserModel user) {
+    @Override
+    public boolean add(UserModel model) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_USERNAME, model.getUserName());
+        cv.put(COLUMN_PASSWORD, model.getPassword());
+        cv.put(COLUMN_INITIALIZED, model.isInitialized());
+        long result = db.insert(USER_TABLE, null, cv);
+        return (result != -1);
+    }
+
+    @Override
+    public boolean update(UserModel model) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COLUMN_PASSWORD, user.getPassword());
-        String selection = COLUMN_USERNAME + " = ?";
-        String[] selectionArgs = {user.getUserName()};
-        int count = db.update(USER_TABLE, values, selection, selectionArgs);
-        return (count > 0);
+        values.put(COLUMN_PASSWORD, model.getPassword());
+        values.put(COLUMN_INITIALIZED, model.isInitialized() ? 1 : 0);
+
+        String whereClause = COLUMN_USERNAME + " = ?";
+        String[] whereArgs = {model.getUserName()};
+        long result = db.update(USER_TABLE, values, whereClause, whereArgs);
+        db.close();
+        return (result != -1);
     }
 
-    public boolean deleteUser(String username) {
+    @Override
+    public boolean delete(UserModel model) {
         SQLiteDatabase db = getWritableDatabase();
-        String selection = COLUMN_USERNAME + " = ?";
-        String[] selectionArgs = {username};
-        int count = db.delete(USER_TABLE, selection, selectionArgs);
+        String whereClause = COLUMN_USERNAME + " = ?";
+        String[] whereArgs = {model.getUserName()};
+        int count = db.delete(USER_TABLE, whereClause, whereArgs);
         return (count > 0);
     }
 
-    public boolean checkUserExists(String username) {
+    @Override
+    public boolean userExists(String username) {
         SQLiteDatabase db = getReadableDatabase();
         String[] columns = {COLUMN_USERNAME};
-        String selection = COLUMN_USERNAME + " = ?";
-        String[] selectionArgs = {username};
-        Cursor cursor = db.query(USER_TABLE, columns, selection, selectionArgs, null, null, null);
+        String whereClause = COLUMN_USERNAME + " = ?";
+        String[] whereArgs = {username};
+        Cursor cursor = db.query(USER_TABLE, columns, whereClause, whereArgs, null, null, null);
         int count = cursor.getCount();
         cursor.close();
         return (count > 0);
     }
-
 }

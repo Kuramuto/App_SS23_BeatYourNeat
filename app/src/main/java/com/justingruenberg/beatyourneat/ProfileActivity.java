@@ -258,4 +258,7 @@ public class ProfileActivity extends AppCompatActivity implements HeightDialog.H
 
         builder.show();
     }
+    public void openBirthdateDialog(){
+
+    }
 }

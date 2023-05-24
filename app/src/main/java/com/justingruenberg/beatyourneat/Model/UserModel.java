@@ -3,10 +3,12 @@ package com.justingruenberg.beatyourneat.Model;
 public class UserModel {
     private String userName;
     private String password;
+    private boolean isInitialized;
 
-    public UserModel(String userName, String password) {
+    public UserModel(String userName, String password, boolean isInitialized) {
         this.userName = userName;
         this.password = password;
+        this.isInitialized = isInitialized;
     }
 
     public String getUserName() {
@@ -23,6 +25,13 @@ public class UserModel {
 
     public void setPassword(String password) {
         this.password = password;
+    }
 
+    public boolean isInitialized() {
+        return isInitialized;
+    }
+
+    public void setInitialized(boolean initialized) {
+        isInitialized = initialized;
     }
 }

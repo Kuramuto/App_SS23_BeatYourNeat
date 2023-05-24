@@ -48,9 +48,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             if (username.isEmpty() || password.isEmpty()) {
                 Toast.makeText(LoginActivity.this, "login with your username and password", Toast.LENGTH_SHORT).show();
             } else {
-                if (userTable.checkUserExists(username)) {
-                    user = userTable.getUser(username);
+                if (userTable.userExists(username)) {
+                    user = userTable.get(username);
                     if (password.equals(user.getPassword())) {
+                        Toast.makeText(this, "logged in", Toast.LENGTH_SHORT).show();
                         // Mainpage
                     } else {
                         Toast.makeText(LoginActivity.this, "wrong password for " + username, Toast.LENGTH_SHORT).show();
