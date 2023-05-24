@@ -20,14 +20,14 @@ import java.util.Calendar;
 
 public class ProfileActivity extends AppCompatActivity implements HeightDialog.HeightDialogInterface, WeightDialog.WeightDialogInterface {
 
-    ToggleButton tb_profileFemale;
-    ToggleButton tb_profileMale;
-    Button bt_profileHeight;
-    Button bt_profileAge;
-    Button bt_profileWeight;
-    DatePickerDialog datePickerDialog;
-    Button bt_profileNext;
-    String chosenGender;
+    private ToggleButton tb_profileFemale;
+    private ToggleButton tb_profileMale;
+    private Button bt_profileHeight;
+    private Button bt_profileAge;
+    private Button bt_profileWeight;
+    private DatePickerDialog datePickerDialog;
+    private Button bt_profileNext;
+    private String chosenGender;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -14,12 +14,12 @@ import com.justingruenberg.beatyourneat.Model.UserModel;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
-    EditText et_registerUser;
-    EditText et_registerPassword;
-    EditText et_registerPasswordConfirm;
-    Button bt_registerRegister;
-    Button bt_registerCancel;
-    UserModelDBHelper userTable;
+    private EditText et_registerUser;
+    private EditText et_registerPassword;
+    private EditText et_registerPasswordConfirm;
+    private Button bt_registerRegister;
+    private Button bt_registerCancel;
+    private UserModelDBHelper userTable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
