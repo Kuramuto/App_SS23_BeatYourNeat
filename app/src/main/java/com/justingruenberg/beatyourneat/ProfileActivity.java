@@ -65,7 +65,7 @@ public class ProfileActivity extends AppCompatActivity implements HeightDialog.H
         bt_profileHeight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openHeightDialog2();
+                openHeightDialog();
             }
         });
 
@@ -79,7 +79,7 @@ public class ProfileActivity extends AppCompatActivity implements HeightDialog.H
         bt_profileWeight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openWeightDialog2();
+                openWeightDialog();
             }
         });
 
@@ -150,115 +150,17 @@ public class ProfileActivity extends AppCompatActivity implements HeightDialog.H
         bt_profileHeight.setText(height + " cm");
     }
 
-    public void openDatePickerDialog(){
-        datePickerDialog.show();
-    }
-
     public void openWeightDialog(){
         WeightDialog weightDialog = new WeightDialog();
         weightDialog.show(getSupportFragmentManager(), "WeightDialog");
     }
-
 
     @Override
     public void onApplyWeight(int kilos, int grams) {
         bt_profileWeight.setText(kilos + "." + grams + " kg");
     }
 
-    public void openHeightDialog2(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this, android.R.style.Theme_DeviceDefault_Light_Dialog_Alert);
-        final NumberPicker np = new NumberPicker(this);
-        final int[] height = new int[1];
-        np.setMinValue(50);
-        np.setMaxValue(250);
-        np.setValue(175);
-        height[0] = np.getValue();
-        np.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker numberPicker, int oldValue, int newValue) {
-                height[0] = newValue;
-            }
-        });
-        LinearLayout linearLayout = new LinearLayout(this);
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
-        linearLayout.addView(np);
-        builder.setView(linearLayout);
-        builder.setTitle("in cm");
-
-        builder.setPositiveButton("Apply", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                // logic for continue button
-                bt_profileHeight.setText(height[0] + " cm");
-            }
-        });
-
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                dialog.cancel(); // logic for cancel button
-            }
-        });
-        builder.show();
-
-    }
-    public void openWeightDialog2(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this, android.R.style.Theme_DeviceDefault_Light_Dialog_Alert);
-        builder.setTitle("in kg");
-        LinearLayout linearLayout = new LinearLayout(this);
-        linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-        linearLayout.setGravity(Gravity.CENTER);
-        final NumberPicker kilos = new NumberPicker(this);
-        final TextView dot = new TextView(this);
-        final NumberPicker grams = new NumberPicker(this);
-        final int[] kilo = new int[1];
-        final int[] gram = new int[1];
-
-        kilos.setMinValue(30);
-        kilos.setMaxValue(300);
-        kilos.setValue(80);
-        kilo[0] = kilos.getValue();
-        kilos.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker numberPicker, int oldValue, int newValue) {
-                kilo[0] = newValue;
-            }
-        });
-
-        dot.setText(".");
-        dot.setTextSize(30);
-
-        grams.setMinValue(0);
-        grams.setMaxValue(9);
-        grams.setValue(0);
-        gram[0] = grams.getValue();
-        grams.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker numberPicker, int oldValue, int newValue) {
-                gram[0] = newValue;
-            }
-        });
-
-        linearLayout.addView(kilos);
-        linearLayout.addView(dot);
-        linearLayout.addView(grams);
-        builder.setView(linearLayout);
-
-        builder.setPositiveButton("Apply", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                bt_profileWeight.setText(kilo[0] + "." + gram[0] + " kg");
-            }
-        });
-
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int i) {
-                dialog.cancel();
-            }
-        });
-
-        builder.show();
-    }
-    public void openBirthdateDialog(){
-
+    public void openDatePickerDialog(){
+        datePickerDialog.show();
     }
 }
