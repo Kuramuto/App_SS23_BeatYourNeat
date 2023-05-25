@@ -2,11 +2,9 @@ package com.justingruenberg.beatyourneat.Model;
 
 public class ProfileModel {
 
-    private String gender;
+    private String gender, birthdate, userName;
     private int height;
-    private String birthdate;
     private double weight;
-    private String userName;
 
     public ProfileModel(String gender, int height, String birthdate, double weight, String userName) {
         this.gender = gender;

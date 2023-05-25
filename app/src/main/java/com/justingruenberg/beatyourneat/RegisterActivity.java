@@ -14,11 +14,8 @@ import com.justingruenberg.beatyourneat.Model.UserModel;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText et_registerUser;
-    private EditText et_registerPassword;
-    private EditText et_registerPasswordConfirm;
-    private Button bt_registerRegister;
-    private Button bt_registerCancel;
+    private EditText et_registerUser, et_registerPassword, et_registerPasswordConfirm;
+    private Button bt_registerRegister, bt_registerCancel;
     private UserModelDBHelper userTable;
 
     @Override

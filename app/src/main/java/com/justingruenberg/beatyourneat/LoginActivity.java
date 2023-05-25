@@ -14,10 +14,8 @@ import com.justingruenberg.beatyourneat.Model.UserModel;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText et_loginUser;
-    private EditText et_loginPassword;
-    private Button bt_loginLogin;
-    private Button bt_loginRegister;
+    private EditText et_loginUser, et_loginPassword;
+    private Button bt_loginLogin, bt_loginRegister;
     private UserModelDBHelper userTable;
     private UserModel user;
 

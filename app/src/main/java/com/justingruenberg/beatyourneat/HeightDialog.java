@@ -14,9 +14,9 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 public class HeightDialog extends AppCompatDialogFragment {
 
-    NumberPicker heightPicker;
-    HeightDialogInterface heightDialogInterface;
-    int height;
+    private NumberPicker heightPicker;
+    private HeightDialogInterface heightDialogInterface;
+    private int height;
 
 
     @NonNull

@@ -18,16 +18,14 @@ import android.widget.ToggleButton;
 
 import java.util.Calendar;
 
-public class ProfileActivity extends AppCompatActivity implements HeightDialog.HeightDialogInterface, WeightDialog.WeightDialogInterface {
+public class ProfileActivity extends AppCompatActivity implements HeightDialog.HeightDialogInterface, WeightDialog.WeightDialogInterface, View.OnClickListener {
 
-    private ToggleButton tb_profileFemale;
-    private ToggleButton tb_profileMale;
-    private Button bt_profileHeight;
-    private Button bt_profileAge;
-    private Button bt_profileWeight;
+    private ToggleButton tb_profileFemale, tb_profileMale;
+    private Button bt_profileHeight, bt_profileAge, bt_profileWeight, bt_profileNext;
     private DatePickerDialog datePickerDialog;
+    private WeightDialog weightDialog;
+    private HeightDialog heightDialog;
     private Calendar calendar;
-    private Button bt_profileNext;
     private String chosenGender;
 
     @Override
@@ -62,26 +60,9 @@ public class ProfileActivity extends AppCompatActivity implements HeightDialog.H
             }
         });
 
-        bt_profileHeight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openHeightDialog();
-            }
-        });
-
-        bt_profileAge.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openDatePickerDialog();
-            }
-        });
-
-        bt_profileWeight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openWeightDialog();
-            }
-        });
+        bt_profileHeight.setOnClickListener(this);
+        bt_profileAge.setOnClickListener(this);
+        bt_profileWeight.setOnClickListener(this);
 
 
     }
@@ -121,7 +102,7 @@ public class ProfileActivity extends AppCompatActivity implements HeightDialog.H
     }
 
     public void openHeightDialog(){
-        HeightDialog heightDialog = new HeightDialog();
+        heightDialog = new HeightDialog();
         heightDialog.show(getSupportFragmentManager(), "HeightDialog");
     }
 
@@ -131,7 +112,7 @@ public class ProfileActivity extends AppCompatActivity implements HeightDialog.H
     }
 
     public void openWeightDialog(){
-        WeightDialog weightDialog = new WeightDialog();
+        weightDialog = new WeightDialog();
         weightDialog.show(getSupportFragmentManager(), "WeightDialog");
     }
 
@@ -158,5 +139,19 @@ public class ProfileActivity extends AppCompatActivity implements HeightDialog.H
         datePickerDialog.setButton(DatePickerDialog.BUTTON_POSITIVE, "Apply", datePickerDialog);
         datePickerDialog.setButton(DatePickerDialog.BUTTON_NEGATIVE, "Cancel", datePickerDialog);
         datePickerDialog.show();
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        if(view.equals(bt_profileHeight)){
+            openHeightDialog();
+        }
+        else if(view.equals(bt_profileAge)){
+            openDatePickerDialog();
+        } else if (view.equals(bt_profileWeight)) {
+            openWeightDialog();
+
+        }
     }
 }

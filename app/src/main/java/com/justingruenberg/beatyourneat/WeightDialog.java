@@ -16,11 +16,9 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 public class WeightDialog extends AppCompatDialogFragment {
 
-    NumberPicker kiloPicker;
-    NumberPicker gramPicker;
-    WeightDialogInterface weightDialogInterface;
-    int kilos;
-    int grams;
+    private NumberPicker kiloPicker, gramPicker;
+    private WeightDialogInterface weightDialogInterface;
+    private int kilos, grams;
 
     @SuppressLint("MissingInflatedId")
     @NonNull
