@@ -1,4 +1,4 @@
-package com.justingruenberg.beatyourneat;
+package com.justingruenberg.beatyourneat.Dialogs;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -14,13 +14,15 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import com.justingruenberg.beatyourneat.R;
+
 public class WeightDialog extends AppCompatDialogFragment {
 
     private NumberPicker kiloPicker, gramPicker;
     private WeightDialogInterface weightDialogInterface;
     private int kilos, grams;
 
-    @SuppressLint("MissingInflatedId")
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {

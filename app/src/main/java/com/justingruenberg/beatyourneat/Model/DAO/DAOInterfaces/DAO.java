@@ -1,4 +1,4 @@
-package com.justingruenberg.beatyourneat.Model.DBHelper;
+package com.justingruenberg.beatyourneat.Model.DAO.DAOInterfaces;
 
 import java.util.List;
 

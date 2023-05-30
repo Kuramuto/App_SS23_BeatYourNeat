@@ -2,16 +2,19 @@ package com.justingruenberg.beatyourneat.Model;
 
 public class ProfileModel {
 
-    private String gender, birthdate, userName;
+    private String gender, birthdate;
     private int height;
     private double weight;
 
-    public ProfileModel(String gender, int height, String birthdate, double weight, String userName) {
+    private UserModel user;
+
+    public ProfileModel(String gender, int height, String birthdate, double weight, UserModel user) {
         this.gender = gender;
         this.height = height;
         this.birthdate = birthdate;
         this.weight = weight;
-        this.userName = userName;
+        this.user = user;
+
     }
 
     public String getGender() {
@@ -46,11 +49,11 @@ public class ProfileModel {
         this.weight = weight;
     }
 
-    public String getUserName() {
-        return userName;
+    public UserModel getUser() {
+        return user;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUser(UserModel user) {
+        this.user = user;
     }
 }

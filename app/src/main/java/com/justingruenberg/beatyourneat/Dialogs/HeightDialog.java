@@ -1,4 +1,4 @@
-package com.justingruenberg.beatyourneat;
+package com.justingruenberg.beatyourneat.Dialogs;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -11,6 +11,8 @@ import android.widget.NumberPicker;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
+
+import com.justingruenberg.beatyourneat.R;
 
 public class HeightDialog extends AppCompatDialogFragment {
 

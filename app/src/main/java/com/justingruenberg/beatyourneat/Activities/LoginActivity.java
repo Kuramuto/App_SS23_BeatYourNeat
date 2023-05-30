@@ -1,4 +1,4 @@
-package com.justingruenberg.beatyourneat;
+package com.justingruenberg.beatyourneat.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,14 +9,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.justingruenberg.beatyourneat.Model.DBHelper.UserModelDBHelper;
+import com.justingruenberg.beatyourneat.Model.DAO.DBHelper;
+import com.justingruenberg.beatyourneat.Model.DAO.UserDAO;
 import com.justingruenberg.beatyourneat.Model.UserModel;
+import com.justingruenberg.beatyourneat.R;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText et_loginUser, et_loginPassword;
     private Button bt_loginLogin, bt_loginRegister;
-    private UserModelDBHelper userTable;
+    private UserDAO userDAO;
     private UserModel user;
 
 
@@ -39,15 +41,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
 
         if (view.equals(bt_loginLogin)) {
-            userTable = new UserModelDBHelper(LoginActivity.this);
+            userDAO = new UserDAO(LoginActivity.this);
             String username = et_loginUser.getText().toString();
             String password = et_loginPassword.getText().toString();
 
             if (username.isEmpty() || password.isEmpty()) {
                 Toast.makeText(LoginActivity.this, "login with your username and password", Toast.LENGTH_SHORT).show();
             } else {
-                if (userTable.userExists(username)) {
-                    user = userTable.get(username);
+                if (userDAO.userExists(username)) {
+                    user = userDAO.get(username);
                     if (password.equals(user.getPassword())) {
                         if(!(user.isInitialized())){
                             startActivity(new Intent(LoginActivity.this, ProfileActivity.class));

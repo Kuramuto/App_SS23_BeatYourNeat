@@ -1,4 +1,4 @@
-package com.justingruenberg.beatyourneat;
+package com.justingruenberg.beatyourneat.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,14 +9,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.justingruenberg.beatyourneat.Model.DBHelper.UserModelDBHelper;
+import com.justingruenberg.beatyourneat.Model.DAO.DBHelper;
+import com.justingruenberg.beatyourneat.Model.DAO.UserDAO;
 import com.justingruenberg.beatyourneat.Model.UserModel;
+import com.justingruenberg.beatyourneat.R;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText et_registerUser, et_registerPassword, et_registerPasswordConfirm;
     private Button bt_registerRegister, bt_registerCancel;
-    private UserModelDBHelper userTable;
+    private UserDAO userDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +40,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View view) {
         if (view.equals(bt_registerRegister)) {
-            userTable = new UserModelDBHelper(RegisterActivity.this);
+            userDAO = new UserDAO(RegisterActivity.this);
             String username = et_registerUser.getText().toString();
             String password = et_registerPassword.getText().toString();
             String password2 = et_registerPasswordConfirm.getText().toString();
@@ -46,9 +48,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             if (username.isEmpty() || password.isEmpty() || password2.isEmpty()) {
                 Toast.makeText(RegisterActivity.this, "register with username, password and confirm your password", Toast.LENGTH_SHORT).show();
             } else {
-                if (!(userTable.userExists(username))) {
+                if (!(userDAO.userExists(username))) {
                     if (password.equals(password2)) {
-                        userTable.add(new UserModel(username, password, false));
+                        userDAO.add(new UserModel(username, password, false));
                         startActivity(new Intent(RegisterActivity.this, ProfileActivity.class));
                     } else {
                         Toast.makeText(RegisterActivity.this, "passwords must be equal", Toast.LENGTH_SHORT).show();
