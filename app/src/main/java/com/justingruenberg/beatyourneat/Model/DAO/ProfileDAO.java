@@ -2,8 +2,11 @@ package com.justingruenberg.beatyourneat.Model.DAO;
 
 
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 
 import com.justingruenberg.beatyourneat.Model.DAO.DAOInterfaces.ProfileModelDAO;
+import com.justingruenberg.beatyourneat.Model.ProfileModel;
 
 import java.util.List;
 
@@ -17,27 +20,34 @@ public class ProfileDAO implements ProfileModelDAO {
 
 
     @Override
-    public ProfileDAO get(String name) {
+    public ProfileModel get(String username) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String[] columns = {dbHelper.getColumnProfileUsername(), dbHelper.getColumnBirthdate(), dbHelper.getColumnHeight(), dbHelper.getColumnWeight(), dbHelper.getColumnGender()};
+        String whereClause = dbHelper.getColumnProfileUsername() + " = ?";
+        String [] whereArgs = {username};
+        Cursor cursor = db.query(dbHelper.getProfileTable(), columns, whereClause, whereArgs, null, null, null);
+
+
         return null;
     }
 
     @Override
-    public List<ProfileDAO> getAll() {
+    public List<ProfileModel> getAll() {
         return null;
     }
 
     @Override
-    public boolean add(ProfileDAO model) {
+    public boolean add(ProfileModel model) {
         return false;
     }
 
     @Override
-    public boolean update(ProfileDAO model) {
+    public boolean update(ProfileModel model) {
         return false;
     }
 
     @Override
-    public boolean delete(ProfileDAO model) {
+    public boolean delete(ProfileModel model) {
         return false;
     }
 }

@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.justingruenberg.beatyourneat.Model.DAO.DBHelper;
 import com.justingruenberg.beatyourneat.Model.DAO.UserDAO;
+import com.justingruenberg.beatyourneat.Model.UserManager;
 import com.justingruenberg.beatyourneat.Model.UserModel;
 import com.justingruenberg.beatyourneat.R;
 
@@ -19,6 +20,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText et_registerUser, et_registerPassword, et_registerPasswordConfirm;
     private Button bt_registerRegister, bt_registerCancel;
     private UserDAO userDAO;
+    private UserManager instance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         bt_registerRegister = findViewById(R.id.bt_registerRegister);
         bt_registerCancel = findViewById(R.id.bt_registerCancel);
 
+        instance = UserManager.getInstance();
         bt_registerRegister.setOnClickListener(this);
         bt_registerCancel.setOnClickListener(this);
 
@@ -50,7 +53,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             } else {
                 if (!(userDAO.userExists(username))) {
                     if (password.equals(password2)) {
-                        userDAO.add(new UserModel(username, password, false));
+                        UserModel user = new UserModel(username, password, false);
+                        userDAO.add(user);
+                        instance.setUser(user);
                         startActivity(new Intent(RegisterActivity.this, ProfileActivity.class));
                     } else {
                         Toast.makeText(RegisterActivity.this, "passwords must be equal", Toast.LENGTH_SHORT).show();

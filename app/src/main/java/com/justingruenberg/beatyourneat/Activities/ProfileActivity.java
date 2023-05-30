@@ -13,6 +13,9 @@ import android.widget.ToggleButton;
 
 import com.justingruenberg.beatyourneat.Dialogs.HeightDialog;
 import com.justingruenberg.beatyourneat.Model.DAO.ProfileDAO;
+import com.justingruenberg.beatyourneat.Model.ProfileModel;
+import com.justingruenberg.beatyourneat.Model.UserManager;
+import com.justingruenberg.beatyourneat.Model.UserModel;
 import com.justingruenberg.beatyourneat.R;
 import com.justingruenberg.beatyourneat.Dialogs.WeightDialog;
 
@@ -22,6 +25,7 @@ public class ProfileActivity extends AppCompatActivity implements HeightDialog.H
 
     private ToggleButton tb_profileFemale, tb_profileMale;
     private Button bt_profileHeight, bt_profileAge, bt_profileWeight, bt_profileNext, bt_profileCancel;
+    private UserManager instance;
     private DatePickerDialog datePickerDialog;
     private WeightDialog weightDialog;
     private HeightDialog heightDialog;
@@ -44,6 +48,7 @@ public class ProfileActivity extends AppCompatActivity implements HeightDialog.H
         bt_profileNext = findViewById(R.id.bt_profileNext);
         bt_profileCancel = findViewById(R.id.bt_profileCancel);
 
+        instance = UserManager.getInstance();
         tb_profileMale.setChecked(true);
         chosenGender = "male";
 
@@ -162,7 +167,10 @@ public class ProfileActivity extends AppCompatActivity implements HeightDialog.H
             if (bt_profileAge.getText().toString().equals("Select age") || bt_profileWeight.getText().toString().equals("Select weight") || bt_profileHeight.getText().toString().equals("Select height")) {
                 Toast.makeText(this, "Please fill out every section", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(this, "Mainpage", Toast.LENGTH_SHORT).show();
+                ProfileDAO profileDAO = new ProfileDAO(this);
+                ProfileModel userProfile = new ProfileModel(chosenGender, chosenHeight, chosenBirthdate, chosenWeight, instance.getCurrentUser());
+
+                Toast.makeText(this, "Initialisation complete for user: ", Toast.LENGTH_SHORT).show();
                 // ProfileDAO persistance + open Mainpage
 
             }

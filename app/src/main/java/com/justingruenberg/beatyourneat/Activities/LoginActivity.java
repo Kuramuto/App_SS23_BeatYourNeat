@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.justingruenberg.beatyourneat.Model.DAO.DBHelper;
 import com.justingruenberg.beatyourneat.Model.DAO.UserDAO;
+import com.justingruenberg.beatyourneat.Model.UserManager;
 import com.justingruenberg.beatyourneat.Model.UserModel;
 import com.justingruenberg.beatyourneat.R;
 
@@ -20,6 +21,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button bt_loginLogin, bt_loginRegister;
     private UserDAO userDAO;
     private UserModel user;
+    private UserManager instance;
 
 
     @Override
@@ -32,6 +34,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         et_loginPassword = findViewById(R.id.et_loginPassword);
         bt_loginLogin = findViewById(R.id.bt_loginLogin);
         bt_loginRegister = findViewById(R.id.bt_loginRegister);
+
+        instance = UserManager.getInstance();
         bt_loginLogin.setOnClickListener(this);
         bt_loginRegister.setOnClickListener(this);
 
@@ -50,6 +54,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             } else {
                 if (userDAO.userExists(username)) {
                     user = userDAO.get(username);
+                    instance.setUser(user);
                     if (password.equals(user.getPassword())) {
                         if(!(user.isInitialized())){
                             startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
