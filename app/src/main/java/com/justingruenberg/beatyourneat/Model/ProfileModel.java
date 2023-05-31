@@ -5,15 +5,14 @@ public class ProfileModel {
     private String gender, birthdate;
     private int height;
     private double weight;
+    private String username;
 
-    private UserModel user;
-
-    public ProfileModel(String gender, int height, String birthdate, double weight, UserModel user) {
+    public ProfileModel(String gender, int height, String birthdate, double weight, String username) {
         this.gender = gender;
         this.height = height;
         this.birthdate = birthdate;
         this.weight = weight;
-        this.user = user;
+        this.username = username;
 
     }
 
@@ -49,11 +48,11 @@ public class ProfileModel {
         this.weight = weight;
     }
 
-    public UserModel getUser() {
-        return user;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUser(UserModel user) {
-        this.user = user;
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

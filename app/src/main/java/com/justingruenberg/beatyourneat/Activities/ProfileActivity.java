@@ -26,10 +26,6 @@ public class ProfileActivity extends AppCompatActivity implements HeightDialog.H
     private ToggleButton tb_profileFemale, tb_profileMale;
     private Button bt_profileHeight, bt_profileAge, bt_profileWeight, bt_profileNext, bt_profileCancel;
     private UserManager instance;
-    private DatePickerDialog datePickerDialog;
-    private WeightDialog weightDialog;
-    private HeightDialog heightDialog;
-    private Calendar calendar;
     private String chosenGender, chosenBirthdate;
     private int chosenHeight;
     private double chosenWeight;
@@ -113,7 +109,7 @@ public class ProfileActivity extends AppCompatActivity implements HeightDialog.H
     }
 
     public void openHeightDialog() {
-        heightDialog = new HeightDialog();
+        HeightDialog heightDialog = new HeightDialog();
         heightDialog.show(getSupportFragmentManager(), "HeightDialog");
     }
 
@@ -124,7 +120,7 @@ public class ProfileActivity extends AppCompatActivity implements HeightDialog.H
     }
 
     public void openWeightDialog() {
-        weightDialog = new WeightDialog();
+        WeightDialog weightDialog = new WeightDialog();
         weightDialog.show(getSupportFragmentManager(), "WeightDialog");
     }
 
@@ -136,11 +132,11 @@ public class ProfileActivity extends AppCompatActivity implements HeightDialog.H
 
     public void openDatePickerDialog() {
 
-        calendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-        datePickerDialog = new DatePickerDialog(this, android.R.style.Theme_Holo_Light_Panel, new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, android.R.style.Theme_Holo_Light_Panel, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
@@ -168,9 +164,10 @@ public class ProfileActivity extends AppCompatActivity implements HeightDialog.H
                 Toast.makeText(this, "Please fill out every section", Toast.LENGTH_SHORT).show();
             } else {
                 ProfileDAO profileDAO = new ProfileDAO(this);
-                ProfileModel userProfile = new ProfileModel(chosenGender, chosenHeight, chosenBirthdate, chosenWeight, instance.getCurrentUser());
-
-                Toast.makeText(this, "Initialisation complete for user: ", Toast.LENGTH_SHORT).show();
+                ProfileModel userProfile = new ProfileModel(chosenGender, chosenHeight, chosenBirthdate, chosenWeight, instance.getCurrentUser().getUserName());
+                instance.getCurrentUser().setUserProfile(userProfile);
+                profileDAO.add(userProfile);
+                Toast.makeText(this, "Initialisation complete", Toast.LENGTH_SHORT).show();
                 // ProfileDAO persistance + open Mainpage
 
             }

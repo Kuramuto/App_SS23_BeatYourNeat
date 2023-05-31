@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.justingruenberg.beatyourneat.Model.DAO.DBHelper;
 import com.justingruenberg.beatyourneat.Model.DAO.UserDAO;
+import com.justingruenberg.beatyourneat.Model.ProfileModel;
 import com.justingruenberg.beatyourneat.Model.UserManager;
 import com.justingruenberg.beatyourneat.Model.UserModel;
 import com.justingruenberg.beatyourneat.R;
@@ -19,7 +20,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     private EditText et_registerUser, et_registerPassword, et_registerPasswordConfirm;
     private Button bt_registerRegister, bt_registerCancel;
-    private UserDAO userDAO;
     private UserManager instance;
 
     @Override
@@ -43,7 +43,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View view) {
         if (view.equals(bt_registerRegister)) {
-            userDAO = new UserDAO(RegisterActivity.this);
+            UserDAO userDAO = new UserDAO(RegisterActivity.this);
             String username = et_registerUser.getText().toString();
             String password = et_registerPassword.getText().toString();
             String password2 = et_registerPasswordConfirm.getText().toString();
@@ -53,7 +53,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             } else {
                 if (!(userDAO.userExists(username))) {
                     if (password.equals(password2)) {
-                        UserModel user = new UserModel(username, password, false);
+                        UserModel user = new UserModel(username, password, null);
                         userDAO.add(user);
                         instance.setUser(user);
                         startActivity(new Intent(RegisterActivity.this, ProfileActivity.class));

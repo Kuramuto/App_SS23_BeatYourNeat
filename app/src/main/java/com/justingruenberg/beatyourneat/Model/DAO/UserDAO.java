@@ -15,9 +15,11 @@ import java.util.List;
 public class UserDAO implements UserModelDAO {
 
     private DBHelper dbHelper;
+    private ProfileDAO profileDAO;
 
     public UserDAO(Context context) {
         this.dbHelper = new DBHelper(context);
+        this.profileDAO = new ProfileDAO(context);
     }
 
     private boolean getIntAsBoolean(int value) {
@@ -27,16 +29,14 @@ public class UserDAO implements UserModelDAO {
     @Override
     public UserModel get(String userName) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String[] columns = {dbHelper.getColumnUsername(), dbHelper.getColumnPassword(), dbHelper.getColumnInitialized()};
+        String[] columns = {dbHelper.getColumnUsername(), dbHelper.getColumnPassword()};
         String whereClause = dbHelper.getColumnUsername() + " = ?";
         String[] whereArgs = {userName};
         Cursor cursor = db.query(dbHelper.getUserTable(), columns, whereClause, whereArgs, null, null, null);
         UserModel user = null;
         if(cursor.moveToFirst()){
             @SuppressLint("Range") String password = cursor.getString(cursor.getColumnIndex(dbHelper.getColumnPassword()));
-            @SuppressLint("Range") int initializedInt = cursor.getInt(cursor.getColumnIndex(dbHelper.getColumnInitialized()));
-            boolean initialized = getIntAsBoolean(initializedInt);
-            user = new UserModel(userName, password, initialized);
+            user = new UserModel(userName, password, profileDAO.get(userName));
         }
         cursor.close();
         db.close();
@@ -47,13 +47,13 @@ public class UserDAO implements UserModelDAO {
     public List<UserModel> getAll() {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         List<UserModel> userList = new ArrayList<>();
-        String[] columns = {dbHelper.getColumnUsername(), dbHelper.getColumnPassword(), dbHelper.getColumnInitialized()};
+        String[] columns = {dbHelper.getColumnUsername(), dbHelper.getColumnPassword()};
         Cursor cursor = db.query(dbHelper.getUserTable(), columns, null, null, null, null, null);
         while (cursor.moveToNext()){
             @SuppressLint("Range") String username = cursor.getString(cursor.getColumnIndex(dbHelper.getColumnUsername()));
             @SuppressLint("Range") String password = cursor.getString(cursor.getColumnIndex(dbHelper.getColumnPassword()));
-            @SuppressLint("Range") int initializedInt = cursor.getInt(cursor.getColumnIndex(dbHelper.getColumnInitialized()));
-            userList.add(new UserModel(username, password, getIntAsBoolean(initializedInt)));
+
+            userList.add(new UserModel(username, password, profileDAO.get(username)));
         }
         cursor.close();
         return userList;
@@ -65,7 +65,6 @@ public class UserDAO implements UserModelDAO {
         ContentValues cv = new ContentValues();
         cv.put(dbHelper.getColumnUsername(), model.getUserName());
         cv.put(dbHelper.getColumnPassword(), model.getPassword());
-        cv.put(dbHelper.getColumnInitialized(), model.isInitialized());
         long result = db.insert(dbHelper.getUserTable(), null, cv);
         return (result != -1);
     }
@@ -75,7 +74,6 @@ public class UserDAO implements UserModelDAO {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(dbHelper.getColumnPassword(), model.getPassword());
-        values.put(dbHelper.getColumnInitialized(), model.isInitialized() ? 1 : 0);
 
         String whereClause = dbHelper.getColumnUsername() + " = ?";
         String[] whereArgs = {model.getUserName()};

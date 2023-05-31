@@ -19,8 +19,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private EditText et_loginUser, et_loginPassword;
     private Button bt_loginLogin, bt_loginRegister;
-    private UserDAO userDAO;
-    private UserModel user;
     private UserManager instance;
 
 
@@ -45,7 +43,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
 
         if (view.equals(bt_loginLogin)) {
-            userDAO = new UserDAO(LoginActivity.this);
+            UserDAO userDAO = new UserDAO(LoginActivity.this);
             String username = et_loginUser.getText().toString();
             String password = et_loginPassword.getText().toString();
 
@@ -53,13 +51,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Toast.makeText(LoginActivity.this, "login with your username and password", Toast.LENGTH_SHORT).show();
             } else {
                 if (userDAO.userExists(username)) {
-                    user = userDAO.get(username);
+                    UserModel user = userDAO.get(username);
                     instance.setUser(user);
                     if (password.equals(user.getPassword())) {
-                        if(!(user.isInitialized())){
+                        if(user.getUserProfile() == null){
                             startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
+                        }else{
+                            // Mainpage
+                            Toast.makeText(this, "YOU IS REGISTRATED!", Toast.LENGTH_SHORT).show();
                         }
-                        // Mainpage
+
                     } else {
                         Toast.makeText(LoginActivity.this, "wrong password for " + username, Toast.LENGTH_SHORT).show();
                     }

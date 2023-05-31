@@ -14,13 +14,12 @@ import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper{
 
-    private static final String DATABASE_NAME = "userTable.db";
+    private static final String DATABASE_NAME = "BeatYourNeat.db";
     private static final int DATABASE_VERSION = 1;
 
     private static final String USER_TABLE = "user_table";
     private static final String COLUMN_USERNAME = "username";
     private static final String COLUMN_PASSWORD = "password";
-    private static final String COLUMN_INITIALIZED = "initialized";
 
     private static final String PROFILE_TABLE = "profile_table";
     private static final String COLUMN_GENDER = "gender";
@@ -45,8 +44,7 @@ public class DBHelper extends SQLiteOpenHelper{
         //Create User table
         String createTableStatement = "CREATE TABLE " + USER_TABLE + " (" +
                 COLUMN_USERNAME + " TEXT PRIMARY KEY, " +
-                COLUMN_PASSWORD + " TEXT, " +
-                COLUMN_INITIALIZED + " INTEGER" +
+                COLUMN_PASSWORD + " TEXT" +
                 ")";
         sqLiteDatabase.execSQL(createTableStatement);
 
@@ -87,10 +85,6 @@ public class DBHelper extends SQLiteOpenHelper{
 
     public String getColumnPassword(){
         return COLUMN_PASSWORD;
-    }
-
-    public String getColumnInitialized(){
-        return COLUMN_INITIALIZED;
     }
 
     public String getProfileTable(){
