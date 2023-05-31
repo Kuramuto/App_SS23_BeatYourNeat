@@ -57,8 +57,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         if(user.getUserProfile() == null){
                             startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
                         }else{
-                            // Mainpage
-                            Toast.makeText(this, "YOU IS REGISTRATED!", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(LoginActivity.this, AddingWeightActivity.class));
                         }
 
                     } else {
