@@ -10,7 +10,6 @@ import java.util.Calendar;
 
 public class DateDialog {
 
-
     public static void openDatePickerDialog(Context context, Button button, String date) {
 
         final String[] chosenDate = {date};

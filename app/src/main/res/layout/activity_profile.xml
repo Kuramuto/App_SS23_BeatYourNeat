@@ -87,7 +87,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.122"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bt_profileAge" />
+        app:layout_constraintTop_toBottomOf="@+id/bt_profileBirthdate" />
 
     <Button
         android:id="@+id/bt_profileNext"
@@ -111,7 +111,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_profileHeight" />
 
     <Button
-        android:id="@+id/bt_profileAge"
+        android:id="@+id/bt_profileBirthdate"
         android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"

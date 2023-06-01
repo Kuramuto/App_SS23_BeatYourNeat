@@ -24,7 +24,6 @@ public class AddingWeightActivity extends AppCompatActivity implements View.OnCl
     private String date;
 
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
