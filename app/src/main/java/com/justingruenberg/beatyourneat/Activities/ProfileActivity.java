@@ -3,6 +3,7 @@ package com.justingruenberg.beatyourneat.Activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,7 +24,8 @@ public class ProfileActivity extends AppCompatActivity implements HeightDialog.H
     private ToggleButton tb_profileFemale, tb_profileMale;
     private Button bt_profileHeight, bt_profileBirthdate, bt_profileWeight, bt_profileNext, bt_profileCancel;
     private UserManager instance;
-    private String chosenGender, chosenBirthdate;
+    private String chosenGender;
+    private String chosenBirthdate;
     private int chosenHeight;
     private double chosenWeight;
 
@@ -41,10 +43,12 @@ public class ProfileActivity extends AppCompatActivity implements HeightDialog.H
         bt_profileWeight = findViewById(R.id.bt_profileWeight);
         bt_profileNext = findViewById(R.id.bt_profileNext);
         bt_profileCancel = findViewById(R.id.bt_profileCancel);
+        chosenBirthdate = "";
+        chosenGender = "";
 
         instance = UserManager.getInstance();
         tb_profileMale.setChecked(true);
-        chosenGender = "male";
+
 
 
         tb_profileFemale.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -100,17 +104,19 @@ public class ProfileActivity extends AppCompatActivity implements HeightDialog.H
         if (view.equals(bt_profileHeight)) {
             openHeightDialog();
         } else if (view.equals(bt_profileBirthdate)) {
-            DateDialog.openDatePickerDialog(this, bt_profileBirthdate, chosenBirthdate);
+            DateDialog.openDatePickerDialog(this, bt_profileBirthdate);
         } else if (view.equals(bt_profileWeight)) {
             openWeightDialog();
         } else if (view.equals(bt_profileNext)) {
             if (bt_profileBirthdate.getText().toString().equals("Select age") || bt_profileWeight.getText().toString().equals("Select weight") || bt_profileHeight.getText().toString().equals("Select height")) {
                 Toast.makeText(this, "Please fill out every section", Toast.LENGTH_SHORT).show();
             } else {
+                chosenBirthdate = bt_profileBirthdate.getText().toString();
                 ProfileDAO profileDAO = new ProfileDAO(this);
                 ProfileModel userProfile = new ProfileModel(chosenGender, chosenHeight, chosenBirthdate, chosenWeight, instance.getCurrentUser().getUserName());
                 instance.getCurrentUser().setUserProfile(userProfile);
                 profileDAO.add(userProfile);
+                startActivity(new Intent(ProfileActivity.this, AddingWeightActivity.class));
                 Toast.makeText(this, "Initialisation complete", Toast.LENGTH_SHORT).show();
                 // ProfileDAO persistance + open Mainpage
 

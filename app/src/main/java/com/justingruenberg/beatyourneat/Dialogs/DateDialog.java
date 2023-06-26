@@ -9,10 +9,9 @@ import android.widget.DatePicker;
 import java.util.Calendar;
 
 public class DateDialog {
+    // nochmal überlegen wegen String date, das der openDateDialog Methode mitgegeben werden soll
+    public static void openDatePickerDialog(Context context, Button button) {
 
-    public static void openDatePickerDialog(Context context, Button button, String date) {
-
-        final String[] chosenDate = {date};
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
@@ -20,9 +19,8 @@ public class DateDialog {
         DatePickerDialog datePickerDialog = new DatePickerDialog(context, android.R.style.Theme_Holo_Light_Panel, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month = month + 1;
-                chosenDate[0] = dateToString(year, month, day);
-                button.setText(chosenDate[0]);
+                month += 1;
+                button.setText(dateToString(year, month, day));
             }
         }, year, month, day);
         datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());

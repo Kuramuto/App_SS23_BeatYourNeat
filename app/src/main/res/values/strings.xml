@@ -20,4 +20,5 @@
     <string name="Weight">Weight</string>
     <string name="Date">Date</string>
     <string name="SelectDate">Select date</string>
+    <string name="Apply">Apply</string>
 </resources>

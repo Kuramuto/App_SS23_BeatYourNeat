@@ -62,8 +62,9 @@ public class DBHelper extends SQLiteOpenHelper{
         // Create Weight table
         String createWeightTableQuery = "CREATE TABLE " + WEIGHT_TABLE + "(" +
                 COLUMN_WEIGHT_USERNAME + " TEXT, " +
-                COLUMN_DATE + " TEXT PRIMARY KEY, " +
+                COLUMN_DATE + " TEXT, " +
                 COLUMN_WEIGHTS + " REAL, " +
+                "PRIMARY KEY(" + COLUMN_WEIGHT_USERNAME + ", " + COLUMN_DATE + "), " +
                 "FOREIGN KEY(" + COLUMN_WEIGHT_USERNAME + ") REFERENCES " + USER_TABLE + "(" + COLUMN_USERNAME + ")" + " ON DELETE CASCADE" +
                 ")";
         sqLiteDatabase.execSQL(createWeightTableQuery);
