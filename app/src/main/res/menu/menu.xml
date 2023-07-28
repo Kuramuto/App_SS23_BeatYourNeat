@@ -1,4 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item
+        android:title="Home"
+        android:icon="@drawable/baseline_home_24"
+        android:id="@+id/navigation_home"
+        />
+    <item
+        android:title="Overview"
+        android:icon="@drawable/baseline_monitor_weight_24"
+        android:id="@+id/navigation_overview"
+        />
+    <item
+        android:title="Calculator"
+        android:icon="@drawable/baseline_fastfood_24"
+        android:id="@+id/navigation_calculator"
+        />
+    <item
+        android:title="Settings"
+        android:icon="@drawable/baseline_settings_24"
+        android:id="@+id/navigation_settings"
+        />
+
+
 </menu>
