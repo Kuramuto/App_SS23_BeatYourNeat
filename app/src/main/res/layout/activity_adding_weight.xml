@@ -65,4 +65,13 @@
         app:layout_constraintTop_toBottomOf="@+id/bt_addingWeightWeight"
         app:layout_constraintVertical_bias="0.0" />
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+
+        android:id="@+id/bnb_addingWeightNavbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
