@@ -7,7 +7,15 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
+import com.justingruenberg.beatyourneat.Dialogs.DateDialog;
+import com.justingruenberg.beatyourneat.Dialogs.UpdatedHeightDialog;
+import com.justingruenberg.beatyourneat.Dialogs.WeightDialog;
+import com.justingruenberg.beatyourneat.Model.DAO.WeightDAO;
+import com.justingruenberg.beatyourneat.Model.UserManager;
+import com.justingruenberg.beatyourneat.Model.WeightModel;
 import com.justingruenberg.beatyourneat.R;
 
 /**
@@ -15,7 +23,7 @@ import com.justingruenberg.beatyourneat.R;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements View.OnClickListener, UpdatedHeightDialog.OnInputSelected {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,6 +35,10 @@ public class HomeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private Button bt_addingWeightWeight, bt_addingWeightDate, bt_addingWeightApply;
+    UserManager instance;
+    private double weight;
+    private String date;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -62,7 +74,59 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        bt_addingWeightWeight = view.findViewById(R.id.bt_addingWeightWeight);
+        bt_addingWeightDate = view.findViewById(R.id.bt_addingWeightDate);
+        bt_addingWeightApply = view.findViewById(R.id.bt_addingWeightApply);
+        date = "";
+        instance = UserManager.getInstance();
+
+        bt_addingWeightWeight.setOnClickListener(this);
+        bt_addingWeightDate.setOnClickListener(this);
+        bt_addingWeightApply.setOnClickListener(this);
+
+
+        return view;
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        if(view.equals(bt_addingWeightWeight)){
+            UpdatedHeightDialog updatedHeightDialog = new UpdatedHeightDialog();
+            updatedHeightDialog.setTargetFragment(HomeFragment.this, 1);
+            updatedHeightDialog.show(getFragmentManager(), "UpdatedHeightDialog");
+        }/*else if(view.equals(bt_addingWeightDate)){
+            DateDialog.openDatePickerDialog(this, bt_addingWeightDate);
+        }else if(view.equals(bt_addingWeightApply)){
+            if(bt_addingWeightWeight.getText().toString().equals("Weight") || bt_addingWeightDate.getText().toString().equals("Date")){
+                Toast.makeText(this, "Choose a tracked weight for a day!", Toast.LENGTH_SHORT).show();
+            }else{
+                date = bt_addingWeightDate.getText().toString();
+                WeightModel userWeight = new WeightModel(date, weight, instance.getCurrentUser());
+                WeightDAO weightDAO = new WeightDAO(this);
+                if(weightDAO.add(userWeight)){
+                    Toast.makeText(this, "Added weight successfully", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+        }*/
+    }
+
+    /*public void openWeightDialog(){
+        WeightDialog weightDialog = new WeightDialog();
+        weightDialog.show(getSupportFragmentManager(), "WeightDialog");
+    }
+
+    @Override
+    public void onApplyWeight(int kilos, int grams) {
+        weight = Double.parseDouble(kilos + "." + grams);
+        bt_addingWeightWeight.setText(weight + " kg");
+    }*/
+
+    @Override
+    public void sendInput(String input) {
+        bt_addingWeightWeight.setText(input);
     }
 }
