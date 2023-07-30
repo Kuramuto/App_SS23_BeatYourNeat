@@ -21,7 +21,7 @@ public class UpdatedHeightDialog extends DialogFragment {
     private TextView tv_updatedHeightDialogSelectHeight, tv_updatedHeightDialogCancel, tv_updatedHeightDialogApply;
     private String height;
 
-    private OnInputSelected onInputSelected;
+    private OnHeightSelected onHeightSelected;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,7 +63,7 @@ public class UpdatedHeightDialog extends DialogFragment {
             @Override
             public void onClick(View view) {
                 if(!height.equals("")){
-                    onInputSelected.sendInput(height);
+                    onHeightSelected.sendInput(height);
                 }
                 getDialog().dismiss();
             }
@@ -78,13 +78,13 @@ public class UpdatedHeightDialog extends DialogFragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         try{
-            onInputSelected = (OnInputSelected) getTargetFragment();
+            onHeightSelected = (OnHeightSelected) getTargetFragment();
         }catch (ClassCastException e){
-
+            e.getMessage();
         }
     }
 
-    public interface OnInputSelected{
+    public interface OnHeightSelected {
         void sendInput(String input);
     }
 }

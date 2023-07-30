@@ -8,14 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
-import com.justingruenberg.beatyourneat.Dialogs.DateDialog;
 import com.justingruenberg.beatyourneat.Dialogs.UpdatedHeightDialog;
-import com.justingruenberg.beatyourneat.Dialogs.WeightDialog;
-import com.justingruenberg.beatyourneat.Model.DAO.WeightDAO;
+import com.justingruenberg.beatyourneat.Dialogs.UpdatedWeightDialog;
 import com.justingruenberg.beatyourneat.Model.UserManager;
-import com.justingruenberg.beatyourneat.Model.WeightModel;
 import com.justingruenberg.beatyourneat.R;
 
 /**
@@ -23,7 +19,7 @@ import com.justingruenberg.beatyourneat.R;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment implements View.OnClickListener, UpdatedHeightDialog.OnInputSelected {
+public class HomeFragment extends Fragment implements View.OnClickListener, UpdatedWeightDialog.onWeightSelected {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -94,9 +90,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Upda
     @Override
     public void onClick(View view) {
         if(view.equals(bt_addingWeightWeight)){
-            UpdatedHeightDialog updatedHeightDialog = new UpdatedHeightDialog();
-            updatedHeightDialog.setTargetFragment(HomeFragment.this, 1);
-            updatedHeightDialog.show(getFragmentManager(), "UpdatedHeightDialog");
+            UpdatedWeightDialog updatedWeightDialog = new UpdatedWeightDialog();
+            updatedWeightDialog.setTargetFragment(HomeFragment.this, 1);
+            updatedWeightDialog.show(getFragmentManager(), "UpdatedWeightDialog");
         }/*else if(view.equals(bt_addingWeightDate)){
             DateDialog.openDatePickerDialog(this, bt_addingWeightDate);
         }else if(view.equals(bt_addingWeightApply)){
@@ -124,9 +120,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Upda
         weight = Double.parseDouble(kilos + "." + grams);
         bt_addingWeightWeight.setText(weight + " kg");
     }*/
-
     @Override
-    public void sendInput(String input) {
-        bt_addingWeightWeight.setText(input);
+    public void onInputSelected(String kilos, String grams) {
+        bt_addingWeightWeight.setText(kilos + "." + grams);
     }
 }

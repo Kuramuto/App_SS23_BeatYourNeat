@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".Activities.AddingWeightActivity">
+
+    <TextView
+        android:id="@+id/tv_updatedWeightDialogSelectWeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="@string/profileSelectWeight"
+        android:textSize="24sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <NumberPicker
+            android:id="@+id/np_updatedWeightDialogKilo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </NumberPicker>
+
+        <TextView
+            android:id="@+id/tv_updatedWeightDialogDot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="."
+            android:textSize="24sp" />
+
+        <NumberPicker
+            android:id="@+id/np_updatedWeightDialogGrams"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </NumberPicker>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp">
+
+        <TextView
+            android:id="@+id/tv_updatedWeightDialogCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:layout_weight="1"
+            android:text="@string/Cancel"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/tv_updatedWeightDialogApply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:layout_weight="1"
+            android:text="@string/Apply"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+
+</LinearLayout>
