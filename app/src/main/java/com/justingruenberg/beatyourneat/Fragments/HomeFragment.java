@@ -8,10 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.justingruenberg.beatyourneat.Dialogs.UpdatedDateDialog;
 import com.justingruenberg.beatyourneat.Dialogs.UpdatedHeightDialog;
 import com.justingruenberg.beatyourneat.Dialogs.UpdatedWeightDialog;
+import com.justingruenberg.beatyourneat.Model.DAO.WeightDAO;
 import com.justingruenberg.beatyourneat.Model.UserManager;
+import com.justingruenberg.beatyourneat.Model.WeightModel;
 import com.justingruenberg.beatyourneat.R;
 
 /**
@@ -19,7 +23,7 @@ import com.justingruenberg.beatyourneat.R;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment implements View.OnClickListener, UpdatedWeightDialog.onWeightSelected {
+public class HomeFragment extends Fragment implements View.OnClickListener, UpdatedWeightDialog.onWeightSelected, UpdatedDateDialog.DateDialogInterface {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -93,35 +97,37 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Upda
             UpdatedWeightDialog updatedWeightDialog = new UpdatedWeightDialog();
             updatedWeightDialog.setTargetFragment(HomeFragment.this, 1);
             updatedWeightDialog.show(getFragmentManager(), "UpdatedWeightDialog");
-        }/*else if(view.equals(bt_addingWeightDate)){
-            DateDialog.openDatePickerDialog(this, bt_addingWeightDate);
+        }else if(view.equals(bt_addingWeightDate)) {
+            UpdatedDateDialog updatedDateDialog = new UpdatedDateDialog();
+            updatedDateDialog.setTargetFragment(HomeFragment.this, 2);
+            updatedDateDialog.show(getFragmentManager(), "UpdatedDateDialog");
+
         }else if(view.equals(bt_addingWeightApply)){
             if(bt_addingWeightWeight.getText().toString().equals("Weight") || bt_addingWeightDate.getText().toString().equals("Date")){
-                Toast.makeText(this, "Choose a tracked weight for a day!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Choose a tracked weight for a day!", Toast.LENGTH_SHORT).show();
             }else{
                 date = bt_addingWeightDate.getText().toString();
+                weight = Double.parseDouble(bt_addingWeightWeight.getText().toString());
                 WeightModel userWeight = new WeightModel(date, weight, instance.getCurrentUser());
-                WeightDAO weightDAO = new WeightDAO(this);
-                if(weightDAO.add(userWeight)){
-                    Toast.makeText(this, "Added weight successfully", Toast.LENGTH_SHORT).show();
+                WeightDAO weightDAO = new WeightDAO(getActivity());
+                if(weightDAO.dateForUserExists(userWeight)){
+                    weightDAO.update(userWeight);
+                    Toast.makeText(getActivity(), "Updated weight successfully", Toast.LENGTH_SHORT).show();
+                }else{
+                    weightDAO.add(userWeight);
+                    Toast.makeText(getActivity(), "Added weight successfully", Toast.LENGTH_SHORT).show();
                 }
             }
 
-        }*/
+        }
     }
-
-    /*public void openWeightDialog(){
-        WeightDialog weightDialog = new WeightDialog();
-        weightDialog.show(getSupportFragmentManager(), "WeightDialog");
-    }
-
-    @Override
-    public void onApplyWeight(int kilos, int grams) {
-        weight = Double.parseDouble(kilos + "." + grams);
-        bt_addingWeightWeight.setText(weight + " kg");
-    }*/
     @Override
     public void onInputSelected(String kilos, String grams) {
         bt_addingWeightWeight.setText(kilos + "." + grams);
+    }
+
+    @Override
+    public void onDateSelected(String date) {
+        bt_addingWeightDate.setText(date);
     }
 }
