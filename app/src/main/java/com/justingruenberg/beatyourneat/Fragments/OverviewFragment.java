@@ -1,5 +1,6 @@
 package com.justingruenberg.beatyourneat.Fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,7 +9,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.justingruenberg.beatyourneat.Model.DAO.WeightDAO;
+import com.justingruenberg.beatyourneat.Model.UserManager;
+import com.justingruenberg.beatyourneat.Model.UserModel;
+import com.justingruenberg.beatyourneat.Model.WeightModel;
 import com.justingruenberg.beatyourneat.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +37,10 @@ public class OverviewFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private LineChart lv_overviewFragment;
+    private List<WeightModel> weightList;
+    UserManager instance;
+
 
     public OverviewFragment() {
         // Required empty public constructor
@@ -57,10 +73,38 @@ public class OverviewFragment extends Fragment {
         }
     }
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_overview, container, false);
+        View view = inflater.inflate(R.layout.fragment_overview, container, false);
+        lv_overviewFragment = view.findViewById(R.id.lc_overviewFragment);
+        instance = UserManager.getInstance();
+        WeightDAO weightDAO = new WeightDAO(getActivity());
+        weightList = weightDAO.getAllWeights(instance.getCurrentUser());
+
+
+
+
+
+        ArrayList<Entry> averageWeights = new ArrayList<>();
+        averageWeights.add(new Entry(0, 20));
+        averageWeights.add(new Entry(1, 24));
+        averageWeights.add(new Entry(2, 2));
+
+        LineDataSet lineDataSet = new LineDataSet(averageWeights, "Average Weights");
+        LineData lineData = new LineData(lineDataSet);
+        lv_overviewFragment.setData(lineData);
+        lv_overviewFragment.invalidate();
+
+        lineDataSet.setDrawCircles(true);
+        lineDataSet.setDrawCircleHole(true);
+        lineDataSet.setCircleRadius(10);
+        lineDataSet.setCircleHoleRadius(10);
+        lineDataSet.setValueTextSize(10);
+        lineDataSet.setLineWidth(5);
+
+        return view;
     }
 }

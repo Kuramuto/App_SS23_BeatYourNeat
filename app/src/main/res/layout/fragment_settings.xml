@@ -1,14 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragments.SettingsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/tv_settingsFragmentUser"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="50dp"
+            android:text="@string/loginUser"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_settingsFragmentPassword"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="50dp"
+            android:text="@string/loginPassword"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_settingsFragmentUser" />
+
+        <TextView
+            android:id="@+id/tv_settingsFragmentDarkMode"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="50dp"
+            android:text="@string/DarkMode"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_settingsFragmentPassword" />
+
+        <TextView
+            android:id="@+id/tv_settingFragmentLogout"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="50dp"
+            android:text="@string/Logout"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_settingsFragmentDarkMode" />
+
+        <TextView
+            android:id="@+id/tv_settingsFragmentDeleteAccount"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="50dp"
+            android:text="@string/DeleteAccount"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_settingFragmentLogout" />
+
+        <ImageButton
+            android:id="@+id/ib_settingsFragmentEditUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/baseline_edit_24"
+            app:layout_constraintStart_toEndOf="@id/tv_settingsFragmentUser"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/ib_settingsFragmentEditPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/baseline_edit_24"
+            app:layout_constraintStart_toEndOf="@id/tv_settingsFragmentPassword"
+            app:layout_constraintTop_toBottomOf="@id/ib_settingsFragmentEditUser" />
+
+        <Switch
+            android:id="@+id/s_settingsFragmentDarkMode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="42dp"
+            android:layout_marginTop="33dp"
+            app:layout_constraintStart_toEndOf="@id/tv_settingsFragmentDarkMode"
+            app:layout_constraintTop_toBottomOf="@id/ib_settingsFragmentEditPassword" />
+
+        <Switch
+            android:id="@+id/s_settingsFragmentLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="42dp"
+            android:layout_marginTop="57dp"
+            app:layout_constraintStart_toEndOf="@id/tv_settingFragmentLogout"
+            app:layout_constraintTop_toBottomOf="@id/s_settingsFragmentDarkMode" />
+
+        <Switch
+            android:id="@+id/s_settingsFragmentDeleteAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="42dp"
+            android:layout_marginTop="53dp"
+            app:layout_constraintStart_toEndOf="@id/tv_settingsFragmentDeleteAccount"
+            app:layout_constraintTop_toBottomOf="@id/s_settingsFragmentLogout" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
