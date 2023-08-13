@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+
 import com.justingruenberg.beatyourneat.Dialogs.UpdatedDateDialog;
-import com.justingruenberg.beatyourneat.Dialogs.UpdatedHeightDialog;
 import com.justingruenberg.beatyourneat.Dialogs.UpdatedWeightDialog;
 import com.justingruenberg.beatyourneat.Model.DAO.WeightDAO;
 import com.justingruenberg.beatyourneat.Model.UserManager;
@@ -122,7 +122,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Upda
         }
     }
     @Override
-    public void onInputSelected(String kilos, String grams) {
+    public void onWeightSelected(String kilos, String grams) {
         bt_addingWeightWeight.setText(kilos + "." + grams);
     }
 

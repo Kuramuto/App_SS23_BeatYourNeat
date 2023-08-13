@@ -63,7 +63,7 @@ public class UpdatedHeightDialog extends DialogFragment {
             @Override
             public void onClick(View view) {
                 if(!height.equals("")){
-                    onHeightSelected.sendInput(height);
+                    onHeightSelected.onHeightSelected(height);
                 }
                 getDialog().dismiss();
             }
@@ -85,6 +85,6 @@ public class UpdatedHeightDialog extends DialogFragment {
     }
 
     public interface OnHeightSelected {
-        void sendInput(String input);
+        void onHeightSelected(String input);
     }
 }

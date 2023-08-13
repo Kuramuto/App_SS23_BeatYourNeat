@@ -7,7 +7,15 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.ToggleButton;
 
+import com.justingruenberg.beatyourneat.Dialogs.BodyFatDialog;
+import com.justingruenberg.beatyourneat.Dialogs.UpdatedDateDialog;
+import com.justingruenberg.beatyourneat.Dialogs.UpdatedHeightDialog;
+import com.justingruenberg.beatyourneat.Dialogs.UpdatedWeightDialog;
 import com.justingruenberg.beatyourneat.R;
 
 /**
@@ -15,7 +23,7 @@ import com.justingruenberg.beatyourneat.R;
  * Use the {@link CalculatorFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CalculatorFragment extends Fragment {
+public class CalculatorFragment extends Fragment implements BodyFatDialog.onBodyFatSelected, UpdatedWeightDialog.onWeightSelected, UpdatedHeightDialog.OnHeightSelected, UpdatedDateDialog.DateDialogInterface {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,6 +33,11 @@ public class CalculatorFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private Button bt_fragmentCalculatorHeight, bt_fragmentCalculatorBirthdate, bt_fragmentCalculatorWeight,
+            bt_fragmentCalculatorBodyFat, bt_fragmentCalculatorExamples, bt_fragmentCalculatorCalculate;
+    private TextView tv_fragmentCalculatorKcal, tv_fragmentCalculatorProtein, tv_fragmentCalculatorCarbs, tv_fragmentCalculatorFats;
+    private ToggleButton tb_fragmentCalculatorMale, tb_fragmentCalculatorFemale;
+    private Spinner s_fragmentCalculatorActivityLevel;
 
     public CalculatorFragment() {
         // Required empty public constructor
@@ -48,22 +61,25 @@ public class CalculatorFragment extends Fragment {
         return fragment;
     }
 
+
+
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+    public void onBodyFatSelected(String percent, String comma) {
+
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_calculator, container, false);
+    public void onDateSelected(String date) {
 
+    }
 
-        return view;
+    @Override
+    public void onHeightSelected(String input) {
+
+    }
+
+    @Override
+    public void onWeightSelected(String kilos, String grams) {
+
     }
 }

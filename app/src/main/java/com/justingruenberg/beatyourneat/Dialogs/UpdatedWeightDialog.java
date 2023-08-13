@@ -36,10 +36,10 @@ public class UpdatedWeightDialog extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layout_updatedweightdialog, container, false);
 
-        np_updatedWeightDialogKilo = view.findViewById(R.id.np_updatedWeightDialogKilo);
-        np_updatedWeightDialogGrams = view.findViewById(R.id.np_updatedWeightDialogGrams);
-        tv_updatedWeightDialogApply = view.findViewById(R.id.tv_updatedWeightDialogApply);
-        tv_updatedWeightDialogCancel = view.findViewById(R.id.tv_updatedWeightDialogCancel);
+        np_updatedWeightDialogKilo = view.findViewById(R.id.np_bodyFatDialogPercent);
+        np_updatedWeightDialogGrams = view.findViewById(R.id.np_bodyFatDialogComma);
+        tv_updatedWeightDialogApply = view.findViewById(R.id.tv_bodyFatDialogApply);
+        tv_updatedWeightDialogCancel = view.findViewById(R.id.tv_bodyFatDialogCancel);
 
 
         np_updatedWeightDialogKilo.setMinValue(30);
@@ -75,7 +75,7 @@ public class UpdatedWeightDialog extends DialogFragment {
             @Override
             public void onClick(View view) {
                 if(!kilo.equals("") || !grams.equals("")){
-                    onWeightSelected.onInputSelected(kilo, grams);
+                    onWeightSelected.onWeightSelected(kilo, grams);
                 }
                 getDialog().dismiss();
             }
@@ -96,6 +96,6 @@ public class UpdatedWeightDialog extends DialogFragment {
     }
 
     public interface onWeightSelected{
-        void onInputSelected(String kilos, String grams);
+        void onWeightSelected(String kilos, String grams);
     }
 }
