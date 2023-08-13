@@ -36,8 +36,8 @@ public class ProfileActivity extends AppCompatActivity implements HeightDialog.H
         setContentView(R.layout.activity_profile);
         setTitle("Profile");
 
-        tb_profileFemale = findViewById(R.id.tb_profileFemale);
-        tb_profileMale = findViewById(R.id.tb_profileMale);
+        tb_profileFemale = findViewById(R.id.tb_fragmentCalculatorFemale);
+        tb_profileMale = findViewById(R.id.tb_fragmentCalculatorMale);
         bt_profileHeight = findViewById(R.id.bt_profileHeight);
         bt_profileBirthdate = findViewById(R.id.bt_profileBirthdate);
         bt_profileWeight = findViewById(R.id.bt_profileWeight);

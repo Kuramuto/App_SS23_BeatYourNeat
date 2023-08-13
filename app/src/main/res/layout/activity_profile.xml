@@ -7,7 +7,7 @@
     tools:context=".Activities.ProfileActivity">
 
     <ToggleButton
-        android:id="@+id/tb_profileFemale"
+        android:id="@+id/tb_fragmentCalculatorFemale"
         android:layout_width="155dp"
         android:layout_height="50dp"
         android:layout_marginStart="40dp"
@@ -19,11 +19,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_profileGender"
+        app:layout_constraintTop_toBottomOf="@+id/tv_fragmentCalculatorChooseGender"
         app:layout_constraintVertical_bias="0.0" />
 
     <ToggleButton
-        android:id="@+id/tb_profileMale"
+        android:id="@+id/tb_fragmentCalculatorMale"
         android:layout_width="155dp"
         android:layout_height="50dp"
         android:layout_marginEnd="40dp"
@@ -33,12 +33,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/tb_profileFemale"
-        app:layout_constraintTop_toBottomOf="@+id/tv_profileGender"
+        app:layout_constraintStart_toEndOf="@+id/tb_fragmentCalculatorFemale"
+        app:layout_constraintTop_toBottomOf="@+id/tv_fragmentCalculatorChooseGender"
         app:layout_constraintVertical_bias="0.027" />
 
     <TextView
-        android:id="@+id/tv_profileGender"
+        android:id="@+id/tv_fragmentCalculatorChooseGender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
@@ -50,7 +50,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_profileHeight"
+        android:id="@+id/tv_fragmentCalculatorBodyParameters"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -60,7 +60,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.12"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tb_profileFemale"
+        app:layout_constraintTop_toBottomOf="@+id/tb_fragmentCalculatorFemale"
         app:layout_constraintVertical_bias="0.0" />
 
 
@@ -108,7 +108,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.165"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_profileHeight" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_fragmentCalculatorBodyParameters" />
 
     <Button
         android:id="@+id/bt_profileBirthdate"

@@ -10,8 +10,13 @@ import com.justingruenberg.beatyourneat.Model.DAO.DAOInterfaces.WeightModelDAO;
 import com.justingruenberg.beatyourneat.Model.UserModel;
 import com.justingruenberg.beatyourneat.Model.WeightModel;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class WeightDAO implements WeightModelDAO {
 
@@ -37,15 +42,15 @@ public class WeightDAO implements WeightModelDAO {
     public List<WeightModel> getAllWeights(UserModel userModel) {
         List<WeightModel> weightList = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String[] columns = {dbHelper.getColumnWeights(), dbHelper.getColumnDate()};
+        String[] columns = {dbHelper.getColumnWeightUsername(), dbHelper.getColumnWeights(), dbHelper.getColumnDate()};
         String whereClause = dbHelper.getColumnWeightUsername() + " = ?";
         String[] whereArgs = {userModel.getUserName()};
-        Cursor cursor = db.query(dbHelper.getWeightTable(), columns, whereClause, whereArgs, null, null, dbHelper.getColumnDate() + " ASC ");
+        Cursor cursor = db.query(dbHelper.getWeightTable(), columns, whereClause, whereArgs, null, null, null);
         while (cursor.moveToNext()){
             @SuppressLint("Range") String username = cursor.getString(cursor.getColumnIndex(dbHelper.getColumnWeightUsername()));
             @SuppressLint("Range") double weight = cursor.getDouble(cursor.getColumnIndex(dbHelper.getColumnWeights()));
             @SuppressLint("Range") String date = cursor.getString(cursor.getColumnIndex(dbHelper.getColumnDate()));
-            weightList.add(new WeightModel(date, weight, userDAO.get(username)));
+            weightList.add(new WeightModel(date, weight, userDAO.get(userModel.getUserName())));
         }
         cursor.close();
         return weightList;

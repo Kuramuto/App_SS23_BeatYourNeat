@@ -1,14 +1,229 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragments.CalculatorFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+    <ToggleButton
+        android:id="@+id/tb_fragmentCalculatorFemale"
+        android:layout_width="155dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="16dp"
+        android:text="ToggleButton"
+        android:textOff="@string/profileFemale"
+        android:textOn="@string/profileFemale"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_fragmentCalculatorChooseGender"
+        app:layout_constraintVertical_bias="0.0" />
 
+    <ToggleButton
+        android:id="@+id/tb_fragmentCalculatorMale"
+        android:layout_width="155dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="40dp"
+        android:text="ToggleButton"
+        android:textOff="@string/profileMale"
+        android:textOn="@string/profileMale"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/tb_fragmentCalculatorFemale"
+        app:layout_constraintTop_toBottomOf="@+id/tv_fragmentCalculatorChooseGender"
+        app:layout_constraintVertical_bias="0.027" />
+
+    <TextView
+        android:id="@+id/tv_fragmentCalculatorChooseGender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:text="@string/profileGender"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.148"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/tv_fragmentCalculatorBodyParameters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/BodyParameters"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tb_fragmentCalculatorFemale"
+            app:layout_constraintVertical_bias="0.0" />
+
+
+        <Button
+            android:id="@+id/bt_fragmentCalculatorHeight"
+            android:layout_width="155dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/ProfileSelectHeight"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.165"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_fragmentCalculatorBodyParameters" />
+
+        <Button
+            android:id="@+id/bt_fragmentCalculatorBirthdate"
+            android:layout_width="155dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="40dp"
+            android:text="@string/profileSelectAge"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_fragmentCalculatorBodyParameters"
+            tools:ignore="MissingConstraints" />
+
+        <Button
+            android:id="@+id/bt_fragmentCalculatorWeight"
+            android:layout_width="155dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/profileSelectWeight"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bt_fragmentCalculatorHeight"
+            tools:ignore="MissingConstraints" />
+
+
+        <Button
+            android:id="@+id/bt_fragmentCalculatorBodyFat"
+            android:layout_width="155dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/SelectBodyFat"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.164"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_fragmentCalculatorBodyFat"
+            tools:ignore="MissingConstraints" />
+
+        <Button
+            android:id="@+id/bt_fragmentCalculatorExamples"
+            android:layout_width="155dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/Excamples"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.871"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_fragmentCalculatorBodyFat"
+            tools:ignore="MissingConstraints" />
+
+        <Spinner
+            android:id="@+id/s_fragmentCalculatorActivityLevel"
+            android:layout_width="335dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="160dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.552"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_fragmentCalculatorActivityLevel"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/tv_fragmentCalculatorBodyFat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/DoYouKnowBodyFat"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bt_fragmentCalculatorWeight" />
+
+        <TextView
+            android:id="@+id/tv_fragmentCalculatorActivityLevel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/DoYouKnowBodyFat"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.011"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bt_fragmentCalculatorBodyFat" />
+
+        <TextView
+            android:id="@+id/tv_fragmentCalculatorResult"
+            android:layout_width="155dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="40dp"
+            android:text="@string/Kcal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/bt_fragmentCalculatorCalculate"
+            app:layout_constraintTop_toBottomOf="@+id/s_fragmentCalculatorActivityLevel" />
+
+        <Button
+            android:id="@+id/bt_fragmentCalculatorCalculate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/Calculate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/s_fragmentCalculatorActivityLevel" />
+
+        <TextView
+            android:id="@+id/tv_fragmentCalculatorProtein"
+            android:layout_width="155dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="40dp"
+            android:text="@string/Protein"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/bt_fragmentCalculatorCalculate"
+            app:layout_constraintTop_toBottomOf="@+id/tv_fragmentCalculatorResult" />
+
+        <TextView
+            android:id="@+id/tv_fragmentCalculatorCarbs"
+            android:layout_width="155dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="40dp"
+            android:text="@string/Carbs"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/bt_fragmentCalculatorCalculate"
+            app:layout_constraintTop_toBottomOf="@+id/tv_fragmentCalculatorProtein" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="155dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="40dp"
+            android:text="@string/Fats"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/bt_fragmentCalculatorCalculate"
+            app:layout_constraintTop_toBottomOf="@+id/tv_fragmentCalculatorCarbs" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

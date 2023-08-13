@@ -19,8 +19,17 @@ import com.justingruenberg.beatyourneat.Model.UserModel;
 import com.justingruenberg.beatyourneat.Model.WeightModel;
 import com.justingruenberg.beatyourneat.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,6 +48,7 @@ public class OverviewFragment extends Fragment {
     private String mParam2;
     private LineChart lv_overviewFragment;
     private List<WeightModel> weightList;
+    private WeightDAO weightDAO;
     UserManager instance;
 
 
@@ -81,30 +91,125 @@ public class OverviewFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_overview, container, false);
         lv_overviewFragment = view.findViewById(R.id.lc_overviewFragment);
         instance = UserManager.getInstance();
-        WeightDAO weightDAO = new WeightDAO(getActivity());
+        weightDAO = new WeightDAO(getActivity());
+
+
+
+
+
         weightList = weightDAO.getAllWeights(instance.getCurrentUser());
+        if(weightList.isEmpty()){
+            return view;
+        }else{
+            sortListByDate((ArrayList<WeightModel>) weightList);
+            Map<String, Double> AverageWeights = calculateWeeklyAverages(weightList);
+            ArrayList<Entry> averageWeights = (ArrayList<Entry>) mapToEntries(AverageWeights);
 
+            LineDataSet lineDataSet = new LineDataSet(averageWeights, "Average Weights");
+            LineData lineData = new LineData(lineDataSet);
+            lv_overviewFragment.setData(lineData);
+            lv_overviewFragment.invalidate();
 
+            lineDataSet.setDrawCircles(true);
+            lineDataSet.setDrawCircleHole(true);
+            lineDataSet.setCircleRadius(10);
+            lineDataSet.setCircleHoleRadius(10);
+            lineDataSet.setValueTextSize(10);
+            lineDataSet.setLineWidth(5);
 
-
-
-        ArrayList<Entry> averageWeights = new ArrayList<>();
-        averageWeights.add(new Entry(0, 20));
-        averageWeights.add(new Entry(1, 24));
-        averageWeights.add(new Entry(2, 2));
-
-        LineDataSet lineDataSet = new LineDataSet(averageWeights, "Average Weights");
-        LineData lineData = new LineData(lineDataSet);
-        lv_overviewFragment.setData(lineData);
-        lv_overviewFragment.invalidate();
-
-        lineDataSet.setDrawCircles(true);
-        lineDataSet.setDrawCircleHole(true);
-        lineDataSet.setCircleRadius(10);
-        lineDataSet.setCircleHoleRadius(10);
-        lineDataSet.setValueTextSize(10);
-        lineDataSet.setLineWidth(5);
-
-        return view;
+            return view;
+        }
     }
+
+    public void sortListByDate(ArrayList<WeightModel> userWeights){
+        final SimpleDateFormat format = new SimpleDateFormat("MMM d yyyy", Locale.ENGLISH);
+
+        Collections.sort(weightList, new Comparator<WeightModel>() {
+            @Override
+            public int compare(WeightModel w1, WeightModel w2) {
+                try {
+                    Date date1 = format.parse(w1.getDate());
+                    Date date2 = format.parse(w2.getDate());
+                    return date1.compareTo(date2);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    return 0;
+                }
+            }
+        });
+
+    }
+
+    //Its just translating UserWeight ArrayList to Entry ArrayList in the right order
+//    public ArrayList<Entry> calculateAverageWeights(ArrayList<WeightModel> userWeights){
+//        ArrayList<Entry> testList = new ArrayList<>();
+//        for(int i =0; i < userWeights.size(); i++){
+//            testList.add(new Entry(i, (float) weightList.get(i).getWeight()));
+//        }
+//        return testList;
+//    }
+
+    public Map<String, Double> calculateWeeklyAverages(List<WeightModel> weightList) {
+        Map<String, Double> weeklyAverages = new LinkedHashMap<>();
+        SimpleDateFormat format = new SimpleDateFormat("MMM d yyyy", Locale.ENGLISH);
+        Calendar cal = Calendar.getInstance();
+
+        for (int i = 0; i < weightList.size(); ) {
+            try {
+                Date startDate = format.parse(weightList.get(i).getDate());
+                cal.setTime(startDate);
+                cal.add(Calendar.DAY_OF_MONTH, 7);
+                Date endDate = cal.getTime();
+
+                double sum = 0.0;
+                int count = 0;
+
+                // Loop to aggregate weights within the week
+                while (i < weightList.size() && (format.parse(weightList.get(i).getDate()).before(endDate))) {
+                    sum += weightList.get(i).getWeight();
+                    count++;
+                    i++;
+                }
+
+                if (count > 0) {
+                    double average = sum / count;
+                    weeklyAverages.put(format.format(startDate), average);
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+                i++; // In case of an error, we move to the next item to avoid infinite loops
+            }
+        }
+
+        return weeklyAverages;
+    }
+    public List<Entry> mapToEntries(Map<String, Double> weeklyAverages) {
+        List<Entry> entries = new ArrayList<>();
+        SimpleDateFormat format = new SimpleDateFormat("MMM d yyyy", Locale.ENGLISH);
+
+        // Hole das Startdatum, um die x-Werte zu berechnen
+        Date startDate;
+        try {
+            startDate = format.parse(weeklyAverages.keySet().iterator().next());
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return entries; // Wenn das Startdatum nicht geparst werden kann, geben eine leere Liste zurück
+        }
+
+        for (String date : weeklyAverages.keySet()) {
+            try {
+                Date currentDate = format.parse(date);
+                float xValue = (currentDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24); // Anzahl der Tage seit dem Startdatum
+                float yValue = weeklyAverages.get(date).floatValue();
+
+                entries.add(new Entry(xValue, yValue));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return entries;
+    }
+
+
 }
