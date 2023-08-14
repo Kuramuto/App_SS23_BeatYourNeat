@@ -50,6 +50,7 @@ public class OverviewFragment extends Fragment {
     private List<WeightModel> weightList;
     private WeightDAO weightDAO;
     UserManager instance;
+    Map<String, Double> AverageWeights;
 
 
     public OverviewFragment() {
@@ -93,16 +94,12 @@ public class OverviewFragment extends Fragment {
         instance = UserManager.getInstance();
         weightDAO = new WeightDAO(getActivity());
 
-
-
-
-
         weightList = weightDAO.getAllWeights(instance.getCurrentUser());
         if(weightList.isEmpty()){
             return view;
         }else{
             sortListByDate((ArrayList<WeightModel>) weightList);
-            Map<String, Double> AverageWeights = calculateWeeklyAverages(weightList);
+            AverageWeights = calculateWeeklyAverages(weightList);
             ArrayList<Entry> averageWeights = (ArrayList<Entry>) mapToEntries(AverageWeights);
 
             LineDataSet lineDataSet = new LineDataSet(averageWeights, "Average Weights");
@@ -121,10 +118,10 @@ public class OverviewFragment extends Fragment {
         }
     }
 
-    public void sortListByDate(ArrayList<WeightModel> userWeights){
+    public static void sortListByDate(ArrayList<WeightModel> userWeights){
         final SimpleDateFormat format = new SimpleDateFormat("MMM d yyyy", Locale.ENGLISH);
 
-        Collections.sort(weightList, new Comparator<WeightModel>() {
+        Collections.sort(userWeights, new Comparator<WeightModel>() {
             @Override
             public int compare(WeightModel w1, WeightModel w2) {
                 try {
@@ -140,23 +137,14 @@ public class OverviewFragment extends Fragment {
 
     }
 
-    //Its just translating UserWeight ArrayList to Entry ArrayList in the right order
-//    public ArrayList<Entry> calculateAverageWeights(ArrayList<WeightModel> userWeights){
-//        ArrayList<Entry> testList = new ArrayList<>();
-//        for(int i =0; i < userWeights.size(); i++){
-//            testList.add(new Entry(i, (float) weightList.get(i).getWeight()));
-//        }
-//        return testList;
-//    }
-
-    public Map<String, Double> calculateWeeklyAverages(List<WeightModel> weightList) {
+    public static Map<String, Double> calculateWeeklyAverages(List<WeightModel> userWeights) {
         Map<String, Double> weeklyAverages = new LinkedHashMap<>();
         SimpleDateFormat format = new SimpleDateFormat("MMM d yyyy", Locale.ENGLISH);
         Calendar cal = Calendar.getInstance();
 
-        for (int i = 0; i < weightList.size(); ) {
+        for (int i = 0; i < userWeights.size(); ) {
             try {
-                Date startDate = format.parse(weightList.get(i).getDate());
+                Date startDate = format.parse(userWeights.get(i).getDate());
                 cal.setTime(startDate);
                 cal.add(Calendar.DAY_OF_MONTH, 7);
                 Date endDate = cal.getTime();
@@ -165,8 +153,8 @@ public class OverviewFragment extends Fragment {
                 int count = 0;
 
                 // Loop to aggregate weights within the week
-                while (i < weightList.size() && (format.parse(weightList.get(i).getDate()).before(endDate))) {
-                    sum += weightList.get(i).getWeight();
+                while (i < userWeights.size() && (format.parse(userWeights.get(i).getDate()).before(endDate))) {
+                    sum += userWeights.get(i).getWeight();
                     count++;
                     i++;
                 }

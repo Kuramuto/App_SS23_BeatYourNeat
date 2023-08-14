@@ -27,17 +27,19 @@
     <string name="DarkMode">Dark Mode</string>
     <string name="Logout">Logout</string>
     <string name="DeleteAccount">Delete Account</string>
-    <string name="BodyParameters">Type in your body parameters</string>
+    <string name="BodyParameters">Your latest body parameters</string>
     <string name="Bodyfat">Body fat percentage</string>
     <string name="BodyFat">Body fat: e.g. 13</string>
-    <string name="SelectBodyFat">Select body fat</string>
+    <string name="SelectBodyFat">select body fat</string>
     <string name="DoYouKnowBodyFat">Do you know your body fat?</string>
-    <string name="Excamples">Body fat examples</string>
+    <string name="Excamples">Examples</string>
     <string name="Calculate">Calculate</string>
     <string name="Kcal">Kcal</string>
     <string name="Protein">Protein</string>
     <string name="Carbs">Carbs</string>
     <string name="Fats">Fats</string>
+    <string name="ActivityLevel">What\'s your activity level?</string>
+    <string name="spinner_description">Activity Level Selection</string>
     <string-array name="ActivityLevels">
         <item>not exhausting (Netflix)</item>
         <item>little strenuous (Office job)</item>

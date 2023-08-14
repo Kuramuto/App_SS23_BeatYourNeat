@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/et_changeUserDialogOldUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Current Username" />
+
+    <EditText
+        android:id="@+id/et_changeUserDialogNewUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="New Username" />
+
+    <Button
+        android:id="@+id/bt_changeUserDialogSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Apply" />
+
+</LinearLayout>
