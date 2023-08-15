@@ -1,5 +1,6 @@
 package com.justingruenberg.beatyourneat.Dialogs;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,10 +24,11 @@ public class ChangeUserDialog extends DialogFragment {
 
     private EditText et_changeUserDialogOldUsername;
     private EditText et_changeUserDialogNewUsername;
-    private Button Apply;
-    UserManager instance;
+    private TextView Apply;
+    private UserManager instance;
     private UserDAO userDAO;
 
+    @SuppressLint("MissingInflatedId")
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -36,7 +39,7 @@ public class ChangeUserDialog extends DialogFragment {
 
         et_changeUserDialogOldUsername = view.findViewById(R.id.et_changeUserDialogOldUsername);
         et_changeUserDialogNewUsername = view.findViewById(R.id.et_changeUserDialogNewUsername);
-        Apply = view.findViewById(R.id.bt_changeUserDialogApply);
+        Apply = view.findViewById(R.id.tv_changeUserDialogApply);
         userDAO = new UserDAO(getActivity());
         instance = UserManager.getInstance();
 

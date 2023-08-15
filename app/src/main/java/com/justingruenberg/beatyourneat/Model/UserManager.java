@@ -24,4 +24,7 @@ public class UserManager {
     public UserModel getCurrentUser(){
         return currentUser;
     }
+    public void reset() {
+        currentUser = null;
+    }
 }

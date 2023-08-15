@@ -17,10 +17,15 @@
         android:layout_height="48dp"
         android:hint="@string/NewUser" />
 
-    <Button
-        android:id="@+id/bt_changeUserDialogApply"
+    <TextView
+        android:id="@+id/tv_changeUserDialogApply"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
+        android:gravity="right"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
         android:text="@string/Apply" />
 
 </LinearLayout>
+

@@ -32,16 +32,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         et_loginPassword = findViewById(R.id.et_loginPassword);
         bt_loginLogin = findViewById(R.id.bt_loginLogin);
         bt_loginRegister = findViewById(R.id.bt_loginRegister);
-
         instance = UserManager.getInstance();
+
         bt_loginLogin.setOnClickListener(this);
         bt_loginRegister.setOnClickListener(this);
-
     }
 
     @Override
     public void onClick(View view) {
-
         if (view.equals(bt_loginLogin)) {
             UserDAO userDAO = new UserDAO(LoginActivity.this);
             String username = et_loginUser.getText().toString();
@@ -54,9 +52,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     UserModel user = userDAO.get(username);
                     instance.setUser(user);
                     if (password.equals(user.getPassword())) {
-                        if(user.getUserProfile() == null){
+                        if (user.getUserProfile() == null) {
                             startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
-                        }else{
+                        } else {
                             startActivity(new Intent(LoginActivity.this, AddingWeightActivity.class));
                         }
 

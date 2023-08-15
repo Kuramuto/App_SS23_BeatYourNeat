@@ -62,23 +62,15 @@ public class AddingWeightActivity extends AppCompatActivity {
                         changeFragment(new CalculatorFragment());
                         break;
                 }
-
                 return false;
             }
         });
-
-
-
-
     }
 
     public void changeFragment(Fragment fragment){
-
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fl_addingWeightFramelayout, fragment);
         fragmentTransaction.commit();
     }
-
-
 }

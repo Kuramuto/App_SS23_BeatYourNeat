@@ -16,13 +16,12 @@ public class ImageDialog {
     public void show(int drawableResource){
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
-        // Das Layout für den Dialog erstellen
+
         ImageView imageView = new ImageView(context);
         imageView.setImageResource(drawableResource);
-        imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE); // Oder einen anderen ScaleType, je nach Bedarf
+        imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         builder.setView(imageView);
 
-        // Optional: Einen Button zum Schließen des Dialogs hinzufügen
         builder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

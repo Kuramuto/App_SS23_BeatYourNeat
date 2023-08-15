@@ -33,13 +33,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         et_registerPasswordConfirm = findViewById(R.id.et_registerPasswordConfirm);
         bt_registerRegister = findViewById(R.id.bt_registerRegister);
         bt_registerCancel = findViewById(R.id.bt_registerCancel);
-
         instance = UserManager.getInstance();
+
         bt_registerRegister.setOnClickListener(this);
         bt_registerCancel.setOnClickListener(this);
-
     }
-
     @Override
     public void onClick(View view) {
         if (view.equals(bt_registerRegister)) {

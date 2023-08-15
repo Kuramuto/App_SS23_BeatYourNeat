@@ -9,6 +9,7 @@ import android.widget.DatePicker;
 import java.util.Calendar;
 
 public class DateDialog {
+
     // nochmal überlegen wegen String date, das der openDateDialog Methode mitgegeben werden soll
     public static void openDatePickerDialog(Context context, Button button) {
 

@@ -36,7 +36,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Upda
     private String mParam1;
     private String mParam2;
     private Button bt_addingWeightWeight, bt_addingWeightDate, bt_addingWeightApply;
-    UserManager instance;
+    private UserManager instance;
     private double weight;
     private String date;
 

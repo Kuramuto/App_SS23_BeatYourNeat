@@ -61,7 +61,7 @@ public class CalculatorFragment extends Fragment implements BodyFatDialog.onBody
             bt_fragmentCalculatorBodyFat, bt_fragmentCalculatorExamples, bt_fragmentCalculatorCalculate;
     private TextView tv_fragmentCalculatorKcal, tv_fragmentCalculatorProtein, tv_fragmentCalculatorCarbs, tv_fragmentCalculatorFats;
     private Spinner s_fragmentCalculatorActivityLevel;
-    UserManager instance;
+    private UserManager instance;
     private ProfileDAO profileDAO;
     private WeightDAO weightDAO;
     private double weight, bodyFat, bmr;

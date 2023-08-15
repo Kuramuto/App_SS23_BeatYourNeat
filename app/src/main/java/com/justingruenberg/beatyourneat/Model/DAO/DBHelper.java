@@ -71,6 +71,15 @@ public class DBHelper extends SQLiteOpenHelper{
     }
 
     @Override
+    public void onOpen(SQLiteDatabase db) {
+        super.onOpen(db);
+        if (!db.isReadOnly()) {
+            db.execSQL("PRAGMA foreign_keys=ON;");
+        }
+    }
+
+
+    @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         String dropTableStatement = "DROP TABLE IF EXISTS " + USER_TABLE;
         sqLiteDatabase.execSQL(dropTableStatement);

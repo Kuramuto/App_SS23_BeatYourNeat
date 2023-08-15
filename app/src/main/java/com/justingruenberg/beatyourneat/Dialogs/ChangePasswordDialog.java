@@ -1,13 +1,13 @@
 package com.justingruenberg.beatyourneat.Dialogs;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,10 +22,11 @@ import com.justingruenberg.beatyourneat.R;
 public class ChangePasswordDialog extends DialogFragment {
 
     private EditText et_changePasswordDialogOldPassword, et_changePasswordDialogNewPassword;
-    private Button bt_changePasswordDialogApply;
-    UserManager instance;
+    private TextView tv_changePasswordDialogApply;
+    private UserManager instance;
     private UserDAO userDAO;
 
+    @SuppressLint("MissingInflatedId")
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -36,7 +37,7 @@ public class ChangePasswordDialog extends DialogFragment {
 
         et_changePasswordDialogOldPassword = view.findViewById(R.id.et_changePasswordDialogOldPassword);
         et_changePasswordDialogNewPassword = view.findViewById(R.id.et_changePasswordDialogNewPassword);
-        bt_changePasswordDialogApply = view.findViewById(R.id.bt_changePasswordDialogApply);
+        tv_changePasswordDialogApply = view.findViewById(R.id.tv_changePasswordDialogApply);
 
         userDAO = new UserDAO(getActivity());
         instance = UserManager.getInstance();
@@ -44,7 +45,7 @@ public class ChangePasswordDialog extends DialogFragment {
         builder.setView(view)
                 .setTitle("Change Password");
 
-        bt_changePasswordDialogApply.setOnClickListener(new View.OnClickListener() {
+        tv_changePasswordDialogApply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String oldPassword = et_changePasswordDialogOldPassword.getText().toString();

@@ -1,5 +1,6 @@
 package com.justingruenberg.beatyourneat.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatDelegate;
@@ -13,8 +14,11 @@ import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.Switch;
 
+import com.justingruenberg.beatyourneat.Activities.LoginActivity;
 import com.justingruenberg.beatyourneat.Dialogs.ChangePasswordDialog;
 import com.justingruenberg.beatyourneat.Dialogs.ChangeUserDialog;
+import com.justingruenberg.beatyourneat.Dialogs.DeleteAccountDialog;
+import com.justingruenberg.beatyourneat.Model.UserManager;
 import com.justingruenberg.beatyourneat.R;
 
 /**
@@ -34,6 +38,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     private String mParam2;
     private ImageButton ib_settingsFragmentEditUser, ib_settingsFragmentEditPassword;
     private Switch s_settingsFragmentDarkMode, s_settingsFragmentLogout, s_settingsFragmentDeleteAccount;
+    private UserManager instance;
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -76,6 +81,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
         s_settingsFragmentDarkMode = view.findViewById(R.id.s_settingsFragmentDarkMode);
         s_settingsFragmentLogout = view.findViewById(R.id.s_settingsFragmentLogout);
         s_settingsFragmentDeleteAccount = view.findViewById(R.id.s_settingsFragmentDeleteAccount);
+        instance = UserManager.getInstance();
 
         ib_settingsFragmentEditUser.setOnClickListener(this);
         ib_settingsFragmentEditPassword.setOnClickListener(this);
@@ -93,9 +99,28 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
         boolean isNightModeOn = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES;
         s_settingsFragmentDarkMode.setChecked(isNightModeOn);
 
-        
-        s_settingsFragmentLogout.setOnClickListener(this);
-        s_settingsFragmentDeleteAccount.setOnClickListener(this);
+        s_settingsFragmentLogout.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if(isChecked){
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    instance.reset();
+                    startActivity(intent);
+                }
+
+            }
+        });
+
+        s_settingsFragmentDeleteAccount.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if(isChecked){
+                    DeleteAccountDialog deleteAccountDialog = new DeleteAccountDialog();
+                    deleteAccountDialog.show(getChildFragmentManager(), "DeleteAccountDialog");
+                }
+            }
+        });
 
 
         return view;

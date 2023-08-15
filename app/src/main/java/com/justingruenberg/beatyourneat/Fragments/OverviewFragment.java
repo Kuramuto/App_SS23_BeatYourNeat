@@ -49,8 +49,8 @@ public class OverviewFragment extends Fragment {
     private LineChart lv_overviewFragment;
     private List<WeightModel> weightList;
     private WeightDAO weightDAO;
-    UserManager instance;
-    Map<String, Double> AverageWeights;
+    private UserManager instance;
+    private Map<String, Double> AverageWeights;
 
 
     public OverviewFragment() {

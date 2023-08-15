@@ -44,6 +44,9 @@
     <string name="OldUser">Current Username</string>
     <string name="OldPassword">Current Password</string>
     <string name="NewPassword">New Password</string>
+    <string name="No">No</string>
+    <string name="Yes">Yes</string>
+    <string name="DeleteAccountText">Are you sure you want to delete your account?</string>
     <string-array name="ActivityLevels">
         <item>not exhausting (Netflix)</item>
         <item>little strenuous (Office job)</item>

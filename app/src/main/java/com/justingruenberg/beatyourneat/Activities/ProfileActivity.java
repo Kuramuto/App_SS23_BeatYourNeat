@@ -50,7 +50,6 @@ public class ProfileActivity extends AppCompatActivity implements HeightDialog.H
         tb_profileMale.setChecked(true);
 
 
-
         tb_profileFemale.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
@@ -72,8 +71,6 @@ public class ProfileActivity extends AppCompatActivity implements HeightDialog.H
         bt_profileWeight.setOnClickListener(this);
         bt_profileNext.setOnClickListener(this);
         bt_profileCancel.setOnClickListener(this);
-
-
     }
 
     public void openHeightDialog() {
@@ -100,7 +97,6 @@ public class ProfileActivity extends AppCompatActivity implements HeightDialog.H
 
     @Override
     public void onClick(View view) {
-
         if (view.equals(bt_profileHeight)) {
             openHeightDialog();
         } else if (view.equals(bt_profileBirthdate)) {
@@ -118,8 +114,6 @@ public class ProfileActivity extends AppCompatActivity implements HeightDialog.H
                 profileDAO.add(userProfile);
                 startActivity(new Intent(ProfileActivity.this, AddingWeightActivity.class));
                 Toast.makeText(this, "Initialisation complete", Toast.LENGTH_SHORT).show();
-                // ProfileDAO persistance + open Mainpage
-
             }
         } else if (view.equals(bt_profileCancel)) {
             finish();
