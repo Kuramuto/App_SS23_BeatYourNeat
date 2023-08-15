@@ -2,12 +2,14 @@ package com.justingruenberg.beatyourneat.Fragments;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.Switch;
 
@@ -77,6 +79,23 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 
         ib_settingsFragmentEditUser.setOnClickListener(this);
         ib_settingsFragmentEditPassword.setOnClickListener(this);
+        s_settingsFragmentDarkMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if(isChecked){
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                }
+                else{
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                }
+            }
+        });
+        boolean isNightModeOn = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES;
+        s_settingsFragmentDarkMode.setChecked(isNightModeOn);
+
+        
+        s_settingsFragmentLogout.setOnClickListener(this);
+        s_settingsFragmentDeleteAccount.setOnClickListener(this);
 
 
         return view;
@@ -93,6 +112,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
             ChangePasswordDialog changePasswordDialog = new ChangePasswordDialog();
             changePasswordDialog.show(getFragmentManager(), "ChangePasswordDialog");
         }
+
 
     }
 }
