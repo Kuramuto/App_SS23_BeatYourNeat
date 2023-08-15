@@ -1,6 +1,5 @@
 package com.justingruenberg.beatyourneat.Dialogs;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
@@ -27,7 +26,6 @@ public class ChangeUserDialog extends DialogFragment {
     UserManager instance;
     private UserDAO userDAO;
 
-    @SuppressLint("MissingInflatedId")
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -45,29 +43,31 @@ public class ChangeUserDialog extends DialogFragment {
         builder.setView(view)
                 .setTitle("Change Username");
 
-        Apply.setOnClickListener(v -> {
-            String oldName = et_changeUserDialogOldUsername.getText().toString();
-            String newName = et_changeUserDialogNewUsername.getText().toString();
+        Apply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String oldName = et_changeUserDialogOldUsername.getText().toString();
+                String newName = et_changeUserDialogNewUsername.getText().toString();
 
-            if(!(oldName.isEmpty() || newName.isEmpty())){
-                if(oldName.equals(instance.getCurrentUser().getUserName())) {
-                    boolean isUpdateSuccessful = userDAO.updateAllUsernames(oldName, newName);
-                    if(isUpdateSuccessful) {
-                        UserModel userModel = new UserModel(newName, instance.getCurrentUser().getPassword(), instance.getCurrentUser().getUserProfile());
-                        instance.setUser(userModel);
-                        Toast.makeText(getActivity(), "Updated Username", Toast.LENGTH_SHORT).show();
+                if (!(oldName.isEmpty() || newName.isEmpty())) {
+                    if (oldName.equals(instance.getCurrentUser().getUserName())) {
+                        boolean isUpdateSuccessful = userDAO.updateAllUsernames(oldName, newName);
+                        if (isUpdateSuccessful) {
+                            UserModel userModel = new UserModel(newName, instance.getCurrentUser().getPassword(), instance.getCurrentUser().getUserProfile());
+                            instance.setUser(userModel);
+                            Toast.makeText(getActivity(), "Updated Username", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getActivity(), "Username already taken", Toast.LENGTH_SHORT).show();
+                        }
                     } else {
-                        Toast.makeText(getActivity(), "Username already taken", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "That's not your Username", Toast.LENGTH_SHORT).show();
                     }
+                } else {
+                    Toast.makeText(getActivity(), "Username fields cannot be empty", Toast.LENGTH_SHORT).show();
                 }
-                else{
-                    Toast.makeText(getActivity(), "That's not your Username", Toast.LENGTH_SHORT).show();
-                }
-            } else {
-                Toast.makeText(getActivity(), "Username fields cannot be empty", Toast.LENGTH_SHORT).show();
-            }
 
-            dismiss();
+                dismiss();
+            }
         });
 
         return builder.create();

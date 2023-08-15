@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Switch;
 
+import com.justingruenberg.beatyourneat.Dialogs.ChangePasswordDialog;
 import com.justingruenberg.beatyourneat.Dialogs.ChangeUserDialog;
 import com.justingruenberg.beatyourneat.R;
 
@@ -75,6 +76,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
         s_settingsFragmentDeleteAccount = view.findViewById(R.id.s_settingsFragmentDeleteAccount);
 
         ib_settingsFragmentEditUser.setOnClickListener(this);
+        ib_settingsFragmentEditPassword.setOnClickListener(this);
 
 
         return view;
@@ -88,7 +90,8 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
             changeUserDialog.show(getFragmentManager(), "ChangeUserDialog");
         }
         else if(view.equals(ib_settingsFragmentEditPassword)){
-
+            ChangePasswordDialog changePasswordDialog = new ChangePasswordDialog();
+            changePasswordDialog.show(getFragmentManager(), "ChangePasswordDialog");
         }
 
     }

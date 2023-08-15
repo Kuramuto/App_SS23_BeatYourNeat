@@ -104,9 +104,9 @@ public class UserDAO implements UserModelDAO {
     }
 
     public boolean updateAllUsernames(String oldUsername, String newUsername) {
-        // Überprüfen Sie zuerst, ob der neue Benutzername bereits existiert
+
         if (userExists(newUsername)) {
-            return false;  // Benutzername schon vergeben
+            return false;
         }
 
         SQLiteDatabase db = dbHelper.getWritableDatabase();

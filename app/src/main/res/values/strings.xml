@@ -40,6 +40,10 @@
     <string name="Fats">Fats</string>
     <string name="ActivityLevel">What\'s your activity level?</string>
     <string name="spinner_description">Activity Level Selection</string>
+    <string name="NewUser">New Username</string>
+    <string name="OldUser">Current Username</string>
+    <string name="OldPassword">Current Password</string>
+    <string name="NewPassword">New Password</string>
     <string-array name="ActivityLevels">
         <item>not exhausting (Netflix)</item>
         <item>little strenuous (Office job)</item>
