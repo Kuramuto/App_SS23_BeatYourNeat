@@ -43,8 +43,8 @@ public class ChangeUserDialog extends DialogFragment {
         userDAO = new UserDAO(getActivity());
         instance = UserManager.getInstance();
 
-        builder.setView(view)
-                .setTitle("Change Username");
+        builder.setView(view);
+        builder.setTitle("Change Username");
 
         Apply.setOnClickListener(new View.OnClickListener() {
             @Override

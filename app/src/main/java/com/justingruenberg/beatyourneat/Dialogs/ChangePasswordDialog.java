@@ -42,8 +42,8 @@ public class ChangePasswordDialog extends DialogFragment {
         userDAO = new UserDAO(getActivity());
         instance = UserManager.getInstance();
 
-        builder.setView(view)
-                .setTitle("Change Password");
+        builder.setView(view);
+        builder.setTitle("Change Password");
 
         tv_changePasswordDialogApply.setOnClickListener(new View.OnClickListener() {
             @Override

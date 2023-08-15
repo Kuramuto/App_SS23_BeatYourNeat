@@ -170,7 +170,6 @@ public class OverviewFragment extends Fragment {
                 double sum = 0.0;
                 int count = 0;
 
-                // Loop to aggregate weights within the week
                 while (i < userWeights.size() && (format.parse(userWeights.get(i).getDate()).before(endDate))) {
                     sum += userWeights.get(i).getWeight();
                     count++;
@@ -183,7 +182,7 @@ public class OverviewFragment extends Fragment {
                 }
             } catch (ParseException e) {
                 e.printStackTrace();
-                i++; // In case of an error, we move to the next item to avoid infinite loops
+                i++;
             }
         }
 
@@ -193,19 +192,20 @@ public class OverviewFragment extends Fragment {
         List<Entry> entries = new ArrayList<>();
         SimpleDateFormat format = new SimpleDateFormat("MMM d yyyy", Locale.ENGLISH);
 
-        // Hole das Startdatum, um die x-Werte zu berechnen
+        // Zuerst Startdatum
         Date startDate;
         try {
             startDate = format.parse(weeklyAverages.keySet().iterator().next());
         } catch (ParseException e) {
             e.printStackTrace();
-            return entries; // Wenn das Startdatum nicht geparst werden kann, geben eine leere Liste zurück
+            return entries;
         }
 
         for (String date : weeklyAverages.keySet()) {
             try {
+                // Irgendwie Anzahl der Tage seit dem Startdatum festlegen
                 Date currentDate = format.parse(date);
-                float xValue = (currentDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24); // Anzahl der Tage seit dem Startdatum
+                float xValue = (currentDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24);
                 float yValue = weeklyAverages.get(date).floatValue();
 
                 entries.add(new Entry(xValue, yValue));
