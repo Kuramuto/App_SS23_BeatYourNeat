@@ -6,17 +6,18 @@
     android:padding="16dp">
 
     <TextView
+        android:id="@+id/tv_deleteAccountDialogQuestion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Are you sure you want to delete your account?"
+        android:text="@string/DeleteQuestion"
         android:textSize="16sp" />
 
     <EditText
-        android:id="@+id/et_passwordConfirmation"
+        android:id="@+id/et_deleteAccountDialogEnterPassword"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginTop="16dp"
-        android:hint="Enter your password"
+        android:hint="@string/EnterPassword"
         android:inputType="textPassword" />
 
     <LinearLayout
@@ -27,18 +28,18 @@
         android:gravity="end">
 
         <TextView
-            android:id="@+id/tv_cancel"
+            android:id="@+id/tv_deleteAccountDialogCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:padding="8dp"
-            android:text="Cancel" />
+            android:text="@string/Cancel" />
 
         <TextView
-            android:id="@+id/tv_confirm"
+            android:id="@+id/tv_deleteAccountDialogConfirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:text="Confirm" />
+            android:text="@string/Confirm" />
     </LinearLayout>
 </LinearLayout>

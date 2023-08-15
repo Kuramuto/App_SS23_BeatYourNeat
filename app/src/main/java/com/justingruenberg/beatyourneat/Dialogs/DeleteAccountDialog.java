@@ -35,9 +35,9 @@ public class DeleteAccountDialog extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.layout_deleteaccountdialog, null);
 
-        et_passwordConfirmation = view.findViewById(R.id.et_passwordConfirmation);
-        tv_confirm = view.findViewById(R.id.tv_confirm);
-        tv_cancel = view.findViewById(R.id.tv_cancel);
+        et_passwordConfirmation = view.findViewById(R.id.et_deleteAccountDialogEnterPassword);
+        tv_confirm = view.findViewById(R.id.tv_deleteAccountDialogConfirm);
+        tv_cancel = view.findViewById(R.id.tv_deleteAccountDialogCancel);
 
         userDAO = new UserDAO(getActivity());
         instance = UserManager.getInstance();

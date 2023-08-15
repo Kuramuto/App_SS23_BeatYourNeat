@@ -27,7 +27,7 @@
         </NumberPicker>
 
         <TextView
-            android:id="@+id/tv_updatedWeightDialogDot"
+            android:id="@+id/tv_bodyFatDialogDot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"

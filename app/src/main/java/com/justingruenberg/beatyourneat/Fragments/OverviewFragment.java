@@ -1,6 +1,7 @@
 package com.justingruenberg.beatyourneat.Fragments;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -53,6 +56,7 @@ public class OverviewFragment extends Fragment {
     private Map<String, Double> AverageWeights;
 
 
+
     public OverviewFragment() {
         // Required empty public constructor
     }
@@ -94,6 +98,7 @@ public class OverviewFragment extends Fragment {
         instance = UserManager.getInstance();
         weightDAO = new WeightDAO(getActivity());
 
+
         weightList = weightDAO.getAllWeights(instance.getCurrentUser());
         if(weightList.isEmpty()){
             return view;
@@ -113,6 +118,19 @@ public class OverviewFragment extends Fragment {
             lineDataSet.setCircleHoleRadius(10);
             lineDataSet.setValueTextSize(10);
             lineDataSet.setLineWidth(5);
+            lineDataSet.setValueTextColor(Color.RED);
+
+            XAxis xAxis = lv_overviewFragment.getXAxis();
+            xAxis.setTextColor(Color.RED);
+            xAxis.setAxisLineColor(Color.RED);
+
+            YAxis yAxisLeft = lv_overviewFragment.getAxisLeft();
+            yAxisLeft.setTextColor(Color.RED);
+            yAxisLeft.setAxisLineColor(Color.RED);
+
+            YAxis yAxisRight = lv_overviewFragment.getAxisRight();
+            yAxisRight.setTextColor(Color.RED);
+            yAxisRight.setAxisLineColor(Color.RED);
 
             return view;
         }

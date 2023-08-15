@@ -47,6 +47,9 @@
     <string name="No">No</string>
     <string name="Yes">Yes</string>
     <string name="DeleteAccountText">Are you sure you want to delete your account?</string>
+    <string name="Confirm">Confirm</string>
+    <string name="EnterPassword">Enter your password</string>
+    <string name="DeleteQuestion">Are you sure you want to delete your account?</string>
     <string-array name="ActivityLevels">
         <item>not exhausting (Netflix)</item>
         <item>little strenuous (Office job)</item>
