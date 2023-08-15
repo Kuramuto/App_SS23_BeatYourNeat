@@ -102,4 +102,54 @@ public class UserDAO implements UserModelDAO {
         cursor.close();
         return (count > 0);
     }
+
+    public boolean updateAllUsernames(String oldUsername, String newUsername) {
+        // Überprüfen Sie zuerst, ob der neue Benutzername bereits existiert
+        if (userExists(newUsername)) {
+            return false;  // Benutzername schon vergeben
+        }
+
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        boolean isSuccess = true;
+
+        // Beginnen Sie eine Transaktion, um sicherzustellen, dass alle Änderungen entweder
+        // vollständig angewendet oder vollständig zurückgesetzt werden.
+        db.beginTransaction();
+
+        try {
+            // 1. Benutzername im User-Table aktualisieren
+            ContentValues userValues = new ContentValues();
+            userValues.put(dbHelper.getColumnUsername(), newUsername);
+            String userWhereClause = dbHelper.getColumnUsername() + " = ?";
+            int userRowsAffected = db.update(dbHelper.getUserTable(), userValues, userWhereClause, new String[]{oldUsername});
+
+            // 2. Benutzername im Profile-Table aktualisieren
+            ContentValues profileValues = new ContentValues();
+            profileValues.put(dbHelper.getColumnProfileUsername(), newUsername);
+            String profileWhereClause = dbHelper.getColumnProfileUsername() + " = ?";
+            int profileRowsAffected = db.update(dbHelper.getProfileTable(), profileValues, profileWhereClause, new String[]{oldUsername});
+
+            // 3. Benutzername im Weight-Table aktualisieren
+            ContentValues weightValues = new ContentValues();
+            weightValues.put(dbHelper.getColumnWeightUsername(), newUsername);
+            String weightWhereClause = dbHelper.getColumnWeightUsername() + " = ?";
+            int weightRowsAffected = db.update(dbHelper.getWeightTable(), weightValues, weightWhereClause, new String[]{oldUsername});
+
+            // Überprüfen Sie, ob alle Updates erfolgreich waren
+            if (userRowsAffected > 0 && profileRowsAffected > 0 && weightRowsAffected > 0) {
+                db.setTransactionSuccessful();  // Markiere die Transaktion als erfolgreich
+            } else {
+                isSuccess = false;
+            }
+        } catch (Exception e) {
+            isSuccess = false;
+        } finally {
+            db.endTransaction();  // Beenden Sie die Transaktion und übernehmen oder setzen Sie alle Änderungen zurück
+        }
+
+        db.close();
+        return isSuccess;
+    }
+
+
 }

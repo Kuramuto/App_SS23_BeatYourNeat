@@ -18,7 +18,7 @@
         android:hint="New Username" />
 
     <Button
-        android:id="@+id/bt_changeUserDialogSubmit"
+        android:id="@+id/bt_changeUserDialogApply"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Apply" />
